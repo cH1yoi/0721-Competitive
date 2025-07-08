@@ -1,0 +1,33 @@
+"Phrases"
+{
+    "BRACKET_START" 
+    {
+        "chi"           "┌ "
+    }
+    
+    "BRACKET_MIDDLE"
+    {
+        "chi"           "├ "
+    }
+    
+    "BRACKET_END" 
+    {
+        "chi"           "└ "
+    }
+    
+    "TAG"
+    {
+        "chi"           "<{green}回合统计{default}> "
+    }
+    
+    "SCORE"
+    {
+        "#format"       "{1:s},{2:d},{3:s},{4:d},{5:s},{6:d},{7:s},{8:s}{9:d},{10:s},{11:d},{12:s}"
+        "chi"           "特感: {1}{olive}{2}{default} ({3}{4} [{5}{6}{7}%%]) {green}|{default} 小僵尸: {8}{olive}{9} {green}|{default} 友伤: {10}{olive}{11} {green}| {blue}{12}"
+    }
+    
+    "ROUND_NOT_LIVE"
+    {
+        "chi"           "回合尚未开始"
+    }
+}

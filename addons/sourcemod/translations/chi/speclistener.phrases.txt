@@ -1,0 +1,31 @@
+"Phrases"
+{
+	"speclisten_ad"
+	{
+		"chi"		"{orange}[SpecListner] {olive}旁观者输入 {orange}!hear {olive}可开关监听模式{default}"
+	}
+	"speclisten_On"
+	{
+		"chi"		"{olive}[SpecListner] {default}监听 {orange}已启用"
+	}
+
+	"speclisten_Off"
+	{
+		"chi"		"{olive}[SpecListner] {default}监听 {red}已禁用"
+	}
+
+	"tittle_mode"
+	{
+		"chi"		"是否打开旁观监听模式？"
+	}
+
+	"select_on"
+	{
+		"chi"		"开启"
+	}
+
+	"select_off"
+	{
+		"chi"		"关闭"
+	}
+}

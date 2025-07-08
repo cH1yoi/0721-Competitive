@@ -1,0 +1,158 @@
+"Games"
+{
+	"left4dead2"
+	{
+		"Functions"
+		{
+			/* CTerrorPlayer::WantsLagCompensationOnEntity(CBaseEntity const*, CUserCmd const*, CBitVec<2048> const*) */
+			"CTerrorPlayer::WantsLagCompensationOnEntity"
+			{
+				"signature"		"CTerrorPlayer::WantsLagCompensationOnEntity"
+				"callconv"		"thiscall"
+				"return"		"int"
+				"this"			"entity"
+				"arguments"
+				{
+					"a1"
+					{
+						"type"	"cbaseentity"
+					}
+					"a2"
+					{
+						"type"	"objectptr"
+					}
+					"a3"
+					{
+						"type"	"objectptr"
+					}
+				}
+			}
+		}
+		"Offsets"
+		{
+			/* @A1m:
+			 * How can find:
+			 * This offset should be in functions 'CLagCompensationManager::AddAdditionalEntity'
+			 * and 'CLagCompensationManager::RemoveAdditionalEntity', this offset points to a binary tree (CUtlRBTree).
+			 * In windows it is usually 12 bytes less, we can check it like this.
+			 *
+			 * This offset is only needed for debugging!
+			*/
+			"CLagCompensationManager->m_AdditionalEntities"
+			{
+				"linux"			"88"
+				"windows"		"76"
+			}
+			
+			"sizeof(CUserCmd)"
+			{
+				"linux"			"88"
+				"windows"		"88"
+			}
+		}
+		"Addresses"
+		{
+			"lagcompensation"
+			{
+				"linux"
+				{
+					"signature"	"g_LagCompensationManager"
+				}
+				"windows"
+				{
+					"signature"	"CBaseEntity::UpdateOnRemove"
+					"read"		"39" //37 offset + 2 byte (mov ecx)
+					"read"		"0"
+				}
+			}
+		}
+		"Signatures"
+		{
+			/*
+			 * CLagCompensationManager::StartLagCompensation(CBasePlayer *,LagCompensationType,Vector const&,QAngle const&,float)
+			 *
+			 * How to find in windows:
+			 * Can be found by string "CLagCompensationManager::StartLagCompensation with NULL CUserCmd!!!".
+			 * sub_10187A70 - vesion 2.2.2.7
+			*/
+			"CLagCompensationManager_StartLagCompensation"
+			{
+				"library"		"server"
+				"linux"			"@_ZN23CLagCompensationManager20StartLagCompensationEP11CBasePlayer19LagCompensationTypeRK6VectorRK6QAnglef"
+				"windows"		"\x55\x8B\x2A\x2A\x2A\x2A\x2A\x33\x2A\x2A\x89\x2A\x2A\x2A\x83"
+								/* 55 8B ? ? ? ? ? 33 ? ? 89 ? ? ? 83 */
+			}
+			
+			/*
+			 * CLagCompensationManager::FinishLagCompensation(CBasePlayer *)
+			 *
+			 * How to find in windows:
+			 * Can be found by string "FinishLagCompensation".
+			 * sub_101881B0 - vesion 2.2.2.7
+			*/
+			"CLagCompensationManager_FinishLagCompensation"
+			{
+				"library"		"server"
+				"linux"			"@_ZN23CLagCompensationManager21FinishLagCompensationEP11CBasePlayer"
+				"windows"		"\x55\x8B\x2A\x2A\x2A\x2A\xA1\x2A\x2A\x2A\x2A\x2A\x2A\x8B\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x8D\x2A\x2A\xE8\x2A\x2A\x2A\x2A\x0F"
+								/* 55 8B ? ? ? ? A1 ? ? ? ? ? ? 8B ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? 8D ? ? E8 ? ? ? ? 0F */
+			}
+			
+			/* @A1m:
+			 * How to find in windows:
+			 * Can be found by string "FrameUpdatePostEntityThink", this will point to the function
+			 * 'CLagCompensationManager::FrameUpdatePostEntityThink', need to create a virtual table using this function.
+			 * as a rule, this function is at number 2, or just compare the code on Windows and the code on Linux to make sure.
+			 * sub_101870A0 - vesion 2.2.2.0
+			*/
+			"CLagCompensationManager_AddAdditionalEntity"
+			{
+				"library"		"server"
+				"linux"			"@_ZN23CLagCompensationManager19AddAdditionalEntityEP11CBaseEntity"
+				"windows"		"\x55\x8B\xEC\x83\xEC\x08\x56\x8B\xF1\x8B\x4D\x08\x83\xC8\xFF"
+								/* 55 8B EC 83 EC 08 56 8B F1 8B 4D 08 83 C8 FF */
+			}
+			
+			/* @A1m:
+			 * How to find in windows:
+			 * Can be found by string "FrameUpdatePostEntityThink", this will point to the function
+			 * 'CLagCompensationManager::FrameUpdatePostEntityThink', need to create a virtual table using this function.
+			 * as a rule, this function is at number 3, or just compare the code on Windows and the code on Linux to make sure.
+			 * sub_10187130 - vesion 2.2.2.0
+			*/
+			"CLagCompensationManager_RemoveAdditionalEntity"
+			{
+				"library"		"server"
+				"linux"			"@_ZN23CLagCompensationManager22RemoveAdditionalEntityEP11CBaseEntity"
+				"windows"		"\x55\x8B\xEC\x51\x56\x8B\xF1\x8B\x4D\x08\x83\xC8\xFF"
+								/* 55 8B EC 51 56 8B F1 8B 4D 08 83 C8 FF */
+			}
+			
+			"g_LagCompensationManager"
+			{
+				"library"		"server"
+				"linux"			"@_ZL24g_LagCompensationManager"
+			}
+			
+			/* @A1m:
+			 * Can be found by string "Warning: Deleting orphaned children of %s",
+			 * the xref will point to this function 'CBaseEntity::UpdateOnRemove'
+			*/
+			"CBaseEntity::UpdateOnRemove"
+			{
+				"library"		"server"
+				"windows"		"\x55\x8B\xEC\x83\xEC\x14\x53\x56\x8B\xF1\xC6\x05\x2A\x2A\x2A\x2A\x01"
+								/* 55 8B EC 83 EC 14 53 56 8B F1 C6 05 ? ? ? ? 01 */
+			}
+			
+			/* CTerrorPlayer::WantsLagCompensationOnEntity(CBaseEntity const*, CUserCmd const*, CBitVec<2048> const*) */
+			"CTerrorPlayer::WantsLagCompensationOnEntity"
+			{
+				"library"		"server"
+				"linux"			"@_ZNK13CTerrorPlayer28WantsLagCompensationOnEntityEPK11CBaseEntityPK8CUserCmdPK7CBitVecILi2048EE"
+				"windows"		"\x55\x8B\x2A\x2A\x2A\x8B\x2A\x2A\xF6\x2A\x2A\x2A\x8B"
+								/* 55 8B ? ? ? 8B ? ? F6 ? ? ? 8B */
+			}
+		}
+	}
+}

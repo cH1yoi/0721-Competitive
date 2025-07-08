@@ -1,0 +1,45 @@
+// Advertisements 2.1
+// by Tsunami
+//
+// Types
+// -----
+// center: Center message
+// chat: Chat message
+// hint: Hint message
+// menu: Menu message
+// top: Top message
+//
+//能用 default teamcolor lightgreen yellow green
+// Flags (optional)
+// -----
+// Accepts flags of admins that will not see the advertisement.
+// When omitted everyone will see the advertisement.
+// When left empty only admins will see the advertisement.
+
+"Advertisements"
+{
+    "1"
+    {
+        "chat"      "[{green}!{default}] 本服标签为hana,防止失联的最好方法是加群加组~:489962242"
+    }
+    "2"
+    {
+        "chat"      "[{green}!{default}] 输入/sur 加入生还者; 输入/inf 加入感染者"
+    }
+    "3"
+    {
+        "chat"      "[{green}!{default}] /maps投票更换喵,可以自助上传~!"
+    }
+    "4"
+    {
+        "chat"      "[{green}!{default}] 本服严禁{green}外挂{default},{green}霸服{default},{green}辱骂等恶劣行为{default};逮到可就可就了"
+    }
+    "5"
+    {
+        "chat"      "[{green}!{default}] 群不搞你求群烂梗,佬文化,纯纯打给木"
+    }
+    "6"
+    {
+        "chat"      "[{green}!{default}] 本群组服可提供内战/混野/赛事支持~!"
+    }
+}

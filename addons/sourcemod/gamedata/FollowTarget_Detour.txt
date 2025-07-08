@@ -1,0 +1,65 @@
+"Games"
+{
+	"left4dead2"
+	{
+		"Addresses"
+		{
+			"CMoveableCamera::FollowTarget"
+			{
+				"linux"
+				{
+					"signature" "CMoveableCamera::FollowTarget"
+				}
+				"windows"
+				{
+					"signature" "CMoveableCamera::FollowTarget"
+				}
+			}
+		}
+		"Offsets"
+		{
+			"Camera_Index" //
+			{
+				"linux"			"281"
+				"windows"		"276"
+			}
+			"g_pEntityList_Opcode_Offset" // offset from "CMoveableCamera::FollowTarget" sig
+			{
+				"linux"			"15" // mov ecx, g_pEntityList
+				"windows"		"20" // mov edx, g_pEntityList
+			}
+			"g_pEntityList_Relative_Offset" // offset from opcode offset to g_pEntityList address itself
+			{
+				"linux"			"2"
+				"windows"		"2"
+			}
+			"g_pEntityList_Bytes" // opcode + arg bytes (should be exact 2 bytes, in vice versa order)
+			{
+				"linux"		"3467" // 0x0D8B - mov ecx
+				"windows"	"5515" // 0x158B - mov edx
+			}
+		}
+		"Functions"
+		{
+			"CMoveableCamera::FollowTarget"
+			{
+				"signature"		"CMoveableCamera::FollowTarget"
+				"callconv"		"thiscall"
+				"return"		"int"
+				"this"			"entity"
+			}
+		}
+		"Signatures"
+		{
+			"CMoveableCamera::FollowTarget"
+			{
+				"library"		"server"
+				"linux"			"@_ZN15CMoveableCamera12FollowTargetEv"
+				"windows"		"\x55\x8B\x2A\x2A\x2A\x2A\x2A\x8B\x2A\x8B\x2A\x2A\x2A\x2A\x2A\x83\x2A\x2A\x74\x2A\x8B\x2A\x2A\x2A\x2A\x2A\x8B\x2A\x25\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x2A\x85\x2A\x74"
+				/* 55 8B ? ? ? ? ? 8B ? 8B ? ? ? ? ? 83 ? ? 74 ? 8B ? ? ? ? ? 8B ? 25 ? ? ? ? ? ? ? ? ? ? 85 ? 74 */
+				/* Found by crash address ^^  */
+				/* Update (2.2.2.8) */
+			}
+		}
+	}
+}

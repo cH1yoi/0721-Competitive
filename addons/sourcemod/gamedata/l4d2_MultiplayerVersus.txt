@@ -1,0 +1,68 @@
+"Games"
+{
+    "#default"
+    {
+        "Offsets"
+        {
+            "OS"
+            {
+                "windows"    "1"
+                "linux"     "2"
+            }
+        }
+    }
+    
+    "left4dead2"
+    {
+        "Addresses"
+        {
+            "NextBotCreatePlayerBot<SurvivorBot>"
+            {
+                "signature" "NextBotCreatePlayerBot<SurvivorBot>"
+            }
+        }
+    
+        "Functions"
+        {
+            "CTerrorGameRules::CalculateSurvivalMultiplier"
+            {
+                "signature"      "CTerrorGameRules::CalculateSurvivalMultiplier"
+                "callconv"       "thiscall"
+                "return"        "int"
+                "this"          "address"
+                "arguments"
+                {
+                    "a1"
+                    {
+                        "type"  "bool"
+                    }
+                }
+            }
+        }
+
+        "Signatures"
+        {
+            "NextBotCreatePlayerBot<SurvivorBot>"
+            {   
+                "library"    "server"
+                "linux"     "@_Z22NextBotCreatePlayerBotI11SurvivorBotEPT_PKc"
+                "windows"   "\xE8****\x83\xC4\x08\x85\xC0\x74\x1C\x8B\x10\x8B"
+            }
+            
+            "CTerrorPlayer::RoundRespawn"
+            {
+                "library"    "server"
+                "linux"     "@_ZN13CTerrorPlayer12RoundRespawnEv"
+                "windows"   "\x56\x8B\xF1\xE8****\xE8****\x84\xC0\x75"
+            }
+
+            "CTerrorGameRules::CalculateSurvivalMultiplier"
+            {
+                "library"    "server"
+                "linux"     "@_ZN16CTerrorGameRules27CalculateSurvivalMultiplierEb"
+                "windows"   "\x55\x8B\xEC\x83\xEC\x08\x80\x7D\x08\x00\x53\x8B\x5D\x0C\x56\x57\x8B\x7D\x10"
+                /* 55 8B EC 83 EC 08 80 7D 08 00 53 8B 5D 0C 56 57 8B 7D 10 */
+            }
+        }
+    }
+}

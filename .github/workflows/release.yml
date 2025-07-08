@@ -1,0 +1,54 @@
+name: Create Release Package
+
+on:
+  release:
+    types: [created]
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up environment
+      run: |
+        mkdir build
+        
+    - name: Copy required files
+      shell: pwsh
+      run: |
+        Copy-Item "addons" -Destination "build/addons" -Recurse
+        Copy-Item "cfg" -Destination "build/cfg" -Recurse
+        Copy-Item "scripts" -Destination "build/scripts" -Recurse
+        Copy-Item "sound" -Destination "build/sound" -Recurse
+        
+        Copy-Item "host.txt" -Destination "build/"
+        Copy-Item "motd.txt" -Destination "build/"
+        Copy-Item "whitelist.cfg" -Destination "build/"
+        Copy-Item "LICENSE" -Destination "build/"
+        
+        Remove-Item "build/addons/sourcemod/scripting" -Recurse -Force -ErrorAction SilentlyContinue
+
+    - name: Create ZIP archive
+      shell: pwsh
+      run: |
+        $TAG_VERSION = $env:GITHUB_REF.Replace('refs/tags/', '')
+        $FILENAME = "0721zonemod-$TAG_VERSION.zip"
+        Write-Host "Creating zip file: $FILENAME"
+        Compress-Archive -Path "build/*" -DestinationPath $FILENAME
+        Write-Host "Zip file created successfully"
+        Get-ChildItem -Path .
+
+    - name: Upload Release Asset
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: 0721zonemod-*.zip
+        token: ${{ secrets.GITHUB_TOKEN }}

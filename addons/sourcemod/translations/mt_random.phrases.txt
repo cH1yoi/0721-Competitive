@@ -1,0 +1,14 @@
+"Phrases"
+{
+	"VOTE_TITLE"
+	{
+		"en"			"Start randomly mixing teams"
+		"chi"			"开始Mix分队(随机分队)"
+	}
+
+	"MENU_ITEM"
+	{
+		"en"			"Random mixing of teams"
+		"chi"			"Random (随机分队)"
+	}
+}

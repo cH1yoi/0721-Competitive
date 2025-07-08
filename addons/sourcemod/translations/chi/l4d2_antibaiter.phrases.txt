@@ -1,0 +1,7 @@
+"Phrases"
+{
+	"Prepare horde"
+	{
+		"chi"			"做好准备, 尸潮来了!"
+	}	
+}

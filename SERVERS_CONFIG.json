@@ -1,0 +1,21 @@
+[
+  {
+    "name": "0721",
+    "host": "127.0.0.1",
+    "user": "0721",
+    "password": "password",
+    "paths": [
+      "/home/0721/versus/left4dead2",
+      "/home/0721/charger/left4dead2"
+    ]
+  },
+  {
+    "name": "996",
+    "host": "127.0.0.1",
+    "user": "steam", 
+    "password": "password",
+    "paths": [
+      "/home/steam/8v8/left4dead2"
+    ]
+  }
+]

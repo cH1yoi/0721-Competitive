@@ -1,0 +1,175 @@
+"MatchModes"
+{
+	"4V4 Configs"
+	{
+		"zmcustom"
+		{
+			"name" "[0721] ZoneMod 2.8.9"
+		}
+		"zonemod"
+		{
+			"name" "ZoneMod 2.8.9e"
+		}
+		"zoneretro"
+		{
+			"name" "ZoneMod Retro 2.8.9e"
+		}
+		"zonemod4K"
+		{
+			"name"	"ZoneMod Quad(4控)"
+		}
+		"hyzmtf"
+		{
+			"name" "ZoneMod TankFight(克局Only)"
+		}
+		"zonehunters"
+		{
+			"name" "ZoneHunters 2.8.9"
+		}
+		"193zonemod"
+		{
+			"name" "ZoneMod v1.9.3"
+		}
+		"neomod"
+		{
+			"name" "NeoMod Tourney 0.4a"
+		}
+		"nextmod"
+		{
+			"name" "NextMod 1.0.5"
+		}
+		"pmelite"
+		{
+			"name" "Promod Elite 1.1"
+		}
+		"deadman"
+		{
+			"name" "Deadman 5.0.3"
+		}
+		"acemodrv"
+		{
+			"name" "Acemod RV 1.3"
+		}
+		"eq"
+		{
+			"name" "Equilibrium 3.0c"
+		}
+		"apex"
+		{
+			"name" "Apex 1.1.2"
+		}
+		
+	}
+	"3V3 Configs"
+	{
+		"zm3v3"
+		{
+			"name" "3v3 ZoneMod"
+		}
+		"193zm3v3"
+		{
+			"name" "3v3 ZoneMod v1.9.3"
+		}
+		"nextmod3v3"
+		{
+			"name" "3v3 NextMod"
+		}
+		"amrv3v3"
+		{
+			"name" "3v3 Acemod RV"
+		}
+		"eq3v3"
+		{
+			"name" "3v3 EQ"
+		}
+		"zh3v3"
+		{
+			"name" "3v3 ZoneHunters"
+		}
+	}
+	"2V2 Configs"
+	{
+		"zm2v2"
+		{
+			"name" "2v2 ZoneMod"
+		}
+		"193zm2v2"
+		{
+			"name" "2v2 ZoneMod v1.9.3"
+		}
+		"nextmod2v2"
+		{
+			"name" "2v2 NextMod"
+		}
+		"amrv2v2"
+		{
+			"name" "2v2 Acemod RV"
+		}
+		"eq2v2"
+		{
+			"name" "2v2 EQ"
+		}
+		"zh2v2"
+		{
+			"name" "2v2 ZoneHunters"
+		}
+	}
+	"1V1 Configs"
+	{
+		"nextmod1v1"
+		{
+			"name" "1v1 NextMod"
+		}
+		"zh1v1"
+		{
+			"name" "1v1 ZoneHunters"
+		}
+		"zm1v1"
+		{
+			"name" "1v1 ZoneMod"
+		}
+		"193zm1v1"
+		{
+			"name" "1v1 ZoneMod v1.9.3"
+		}
+		"amrv1v1"
+		{
+			"name" "1v1 Acemod RV"
+		}
+		"eq1v1"
+		{
+			"name" "1v1 EQ"
+		}
+	}
+	"Other Configs"
+	{
+		"zonemod6v6"
+		{
+			"name" "ZoneMod 6v6"
+		}
+		"zonemod8v8"
+		{
+			"name" "ZoneMod 8v8"
+		}
+		"zonemod8v8allcharger"
+		{
+			"name" "ZoneMod 8v8牛牛冲刺"
+		}
+		"advanced8v8"
+		{
+			"name" "Advanced 8v8(进阶包)"
+		}
+		"zm_carplayplus"
+		{
+			"name" "好多铁哦(仅限官图)"
+		}
+		"advanced"
+		{
+			"name" "Advanced 进阶包抗"
+		}
+		"zmtraining"
+		{
+			"name" "小花特感训练营"
+		}
+	}
+}

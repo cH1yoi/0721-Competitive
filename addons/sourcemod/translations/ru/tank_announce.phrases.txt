@@ -1,0 +1,70 @@
+"Phrases"
+{
+	"BRACKET_START"
+	{
+		"ru"			"┌ "
+	}
+
+	"BRACKET_MIDDLE"
+	{
+		"ru"			"├ "
+	}
+
+	"BRACKET_END"
+	{
+		"ru"			"└ "
+	}
+
+	"TAG"
+	{
+		"ru"			"<{green}Tank{default}> "
+	}
+
+	"ALIVE"
+	{
+		"#format"		"{1:s},{2:s},{3:d}"
+		"ru"			"У Танка{1} {red}{2}{default} осталось {olive}{3}{default} здоровья. Урон:"
+	}
+
+	"ALIVE_WITHOUT_DAMAGE"
+	{
+		"#format"		"{1:s},{2:s},{3:d}"
+		"ru"			"У Танка{1} {red}{2}{default} осталось {olive}{3}{default} здоровья"
+	}
+
+	"DEAD"
+	{
+		"#format"		"{1:s},{2:s}"
+		"ru"			"Танк{1} {red}{2}{default} убит! {olive}Урон{default} нанесённый {olive}Танку{default}:"
+	}
+	
+	"DEAD_WITHOUT_DAMAGE"
+	{
+		"#format"		"{1:s},{2:s}"
+		"ru"			"Танк{1} {red}{2}{default} убит!"
+	}
+
+	"DAMAGE"
+	{
+		"#format"		"{1:s},{2:d},{3:s},{4:d},{5:s},{6:s},{7:s}"
+		"ru"			"{default}{1}{2} {green}[{3}{default}{4}%%{green}{5}] {6}{7}"
+	}
+
+	"TANK_ALIVE_SCORE"
+	{
+		"#format"		"{1:s},{2:s},{3:d}"
+		"ru"			"Танк{1} {red}{2}{default} нанёс урон за {olive}{3}{default} секунд(ы):"
+	}
+
+	"TANK_IMPACT"
+	{
+		"#format"		"{1:d},{2:d},{3:d}"
+		"ru"			"Руками: {olive}{1} {green}|{default} Камнями: {olive}{2} {green}|{default} Объектами: {olive}{3}"
+	}
+
+	"TANK_TOTAL_DAMAGE"
+	{
+		"#format"		"{1:d}"
+		"ru"			"Всего урона: {olive}{1}"
+	}
+}

@@ -1,0 +1,76 @@
+"Phrases"
+{
+    "BRACKET_START"
+    {
+        "en"            "┌ "
+    }
+
+    "BRACKET_MIDDLE"
+    {
+        "en"            "├ "
+    }
+
+    "BRACKET_END"
+    {
+        "en"            "└ "
+    }
+
+    "TAG"
+    {
+        "en"            "<{green}Tank{default}> "
+    }
+    
+    "ALIVE"
+    {
+        "#format"       "{1:s},{2:s},{3:d}"
+        "en"            "The Tank{1} {red}{2}{default} had {olive}{3}{default} health remaining. Damage:"
+    }
+
+    "ALIVE_WITHOUT_DAMAGE"
+    {
+        "#format"       "{1:s},{2:s},{3:d}"
+        "en"            "The Tank{1} {red}{2}{default} had {olive}{3}{default} health remaining"
+    }
+
+    "DEAD"
+    {
+        "#format"       "{1:s},{2:s}"
+        "en"            "The Tank{1} {red}{2}{default} is dead! {olive}Damage{default} dealt to the {olive}Tank{default}:"
+    }
+    
+    "DEAD_WITHOUT_DAMAGE"
+    {
+        "#format"       "{1:s},{2:s}"
+        "en"            "The Tank{1} {red}{2}{default} is dead!"
+    }
+
+    "DAMAGE"
+    {
+        "#format"       "{1:s},{2:d},{3:s},{4:d},{5:s},{6:s},{7:s}"
+        "en"            "{default}{1}{2} {green}[{3}{default}{4}%%{green}{5}] {6}{7}"
+    }
+
+    "TANK_ALIVE_SCORE"
+    {
+        "#format"       "{1:s},{2:s},{3:d}"
+        "en"            "The Tank{1} {red}{2}{default} dealt damage in {olive}{3}{default} seconds:"
+    }
+
+    "TANK_IMPACT"
+    {
+        "#format"       "{1:d},{2:d},{3:d}"
+        "en"            "Punch: {olive}{1}{default} | Rock: {olive}{2}{default} | Hittable: {olive}{3}"
+    }
+
+    "TANK_INCAPS_DEATHS"
+    {
+        "#format"       "{1:d},{2:d}"
+        "en"            "Incaps: {olive}{1}{default} | Deaths: {olive}{2}"
+    }
+
+    "TANK_TOTAL_DAMAGE"
+    {
+        "#format"       "{1:d}"
+        "en"            "Total Damage to Survivors: {olive}{1}"
+    }
+}

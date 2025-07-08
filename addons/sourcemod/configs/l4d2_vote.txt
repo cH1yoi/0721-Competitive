@@ -1,0 +1,110 @@
+"VoteItems"
+{
+	"服务器选项(server setting)"
+	{
+		"sv_allow_lobby_connect_only 0;sv_force_unreserved 1"
+		{
+			"message" "移除大厅(kill lobbyres)"
+		}
+		"sm_hp"
+		{
+			"message" "投票回血(votehp)"
+		}
+		"sm_cvar sm_max_lerp 0.1"
+		{
+			"message" "解除Lerps限制"
+		}
+		"sm_cvar l4d_tank_pass_count 0"
+		{
+			"message" "禁止让克"
+		}
+		"sm_cvar l4d_tank_pass_count 1"
+		{
+			"message" "允许让克"
+		}
+	}
+
+	"更改全体语音（alltalk）"
+	{
+		"sm_cvar sv_alltalk 1"
+		{
+			"message" "打开全体语音（turn on）"
+		}
+		"sm_cvar sv_alltalk 0"
+		{
+			"message" "关闭全体语音（turn off）"
+		}
+	}
+
+	"投票踢人&旁观（votekick & spec）"
+	{
+		"sm_votekick"
+		{
+			"message" "投票踢人（votekick）"
+		}
+		"sm_votespec"
+		{
+			"message" "投票旁观（votespec）"
+		}
+	}
+
+	"经验限制 (explimit)"
+	{
+		"sm_cvar exp_limit_enabled 0"
+		{
+			"message" "关闭经验限制（turn off）"
+		}
+		"sm_cvar exp_limit_enabled 1"
+		{
+			"message" "开启经验限制（turn on）"
+		}
+		"sm_cvar exp_limit_min 75"
+		{
+			"message" "设置最小经验限制（exp min 75）"
+		}
+		"sm_cvar exp_limit_min 500"
+		{
+			"message" "设置最小经验限制（exp min 500）"
+		}
+		"sm_cvar exp_limit_min 1000"
+		{
+			"message" "设置最小经验限制（exp min 1000）"
+		}
+		"sm_cvar exp_limit_min 2000"
+		{
+			"message" "设置最小经验限制（exp min 2000）"
+		}
+		"sm_cvar exp_limit_max 500"
+		{
+			"message" "设置最大经验限制（exp max 500）"
+		}
+		"sm_cvar exp_limit_max 1000"
+		{
+			"message" "设置最大经验限制（exp max 1000）"
+		}
+		"sm_cvar exp_limit_max 2000"
+		{
+			"message" "设置最大经验限制（exp max 2000）"
+		}
+	}
+
+	"游戏设置 (game setting)"
+	{
+		"sm_cvar l4d2_block_jump_rock 0"
+		{
+			"message" "允许跳砖（allow jump rock）"
+		}
+		"sm_cvar l4d2_block_jump_rock 1"
+		{
+			"message" "禁止跳砖（block jump rock）"
+		}
+		"sm plugins load_unlock;sm plugins unload optional/l4d2_nobackjumps.smx;sm plugins load_lock"
+		{
+			"message" "启用静音跳（allow backjump）"
+		}
+		"sm plugins load_unlock;sm plugins load optional/l4d2_nobackjumps.smx;sm plugins load_lock"
+		{
+			"message" "禁止静音跳（block backjump）"
+		}
+	}
+}

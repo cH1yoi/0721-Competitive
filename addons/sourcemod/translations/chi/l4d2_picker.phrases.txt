@@ -1,0 +1,204 @@
+"Phrases"
+{
+	"Insufficient_Players"
+	{
+		"chi"		"<{olive}Picker{default}> 当前玩家不足 {olive}{1}{default} 人，无法发起投票"
+	}
+	
+	"Picker_Disconnect"
+	{
+		"chi"		"<{olive}Picker{default}> 队长 ({green}{1}{default}) 已断开连接"
+	}
+	
+	"Picker_ToSpec"
+	{
+		"chi"		"<{olive}Picker{default}> 选人结束前队长不能成为旁观者"
+	}
+	
+	"VoteAsk"
+	{
+		"chi"		"开启随机队长模式？"
+	}
+	
+	"InitVoter"
+	{
+		"chi"		"<{olive}Picker{default}> {teamcolor}{1}{default} 发起了投票"
+	}
+	
+	"AdminStopPicker"
+	{
+		"chi"		"<{olive}Picker{default}> 管理员 ({green}{1}{default}) 强制停止选人"
+	}
+	
+	"PlayerChose"
+	{
+		"chi"		"<{olive}Picker{default}> {teamcolor}{1}{default} 选择了 {olive}{2}"
+	}
+	
+	"ChooseGuide"
+	{
+		"chi"		"<{olive}Picker{default}> 通过左侧菜单序号选择队友"
+	}
+	
+	"ChoosePlayers"
+	{
+		"chi"		"<{olive}Picker{default}> 选择玩家:"
+	}
+	
+	"TeamIsFull"
+	{
+		"chi"		"<{olive}Picker{default}> {blue}{1}{default} 阵营已满员"
+	}
+	
+	"PlayerNotConnected"
+	{
+		"chi"		"<{olive}Picker{default}> 选择的玩家不在服务器中"
+	}
+	
+	"AlreadyPicked"
+	{
+		"chi"		"<{olive}Picker{default}> {green}{1}{default} 已被选择"
+	}
+	
+	"WhoPicked"
+	{
+		"chi"		"<{olive}Picker{default}> {teamcolor}{2}{default} 选择了 {green}{1}{default} ({teamcolor}{3}{default})"
+	}
+	
+	"WhoRandomPicked"
+	{
+		"chi"		"<{olive}Picker{default}> {teamcolor}{2}{default} {olive}随机{default}选择了 {green}{1}{default} ({teamcolor}{3}{default})"
+	}
+	
+	"FinishPicker"
+	{
+		"chi"		"<{olive}Picker{default}> 选人结束..."
+	}
+	
+	"1st"
+	{
+		"chi"		"1选"
+	}
+	
+	"2nd"
+	{
+		"chi"		"2选"
+	}
+	
+	"PickerPriority"
+	{
+		"chi"		"<{olive}Picker{default}> {1} : {teamcolor}{3}{default} ({2})"
+	}
+	
+	"PMenuTitle"
+	{
+		"chi"		"选择队友 ({1}):"
+	}
+	
+	"CPickerVoteAsk"
+	{
+		"chi"		"开启竞选队长模式?"
+	}
+	
+	"CampaignGuide"
+	{
+		"chi"		"<{olive}Picker{default}> 10秒内通过菜单选择是否成为{green}队长{default}"
+	}
+	
+	"CMenuTitle"
+	{
+		"chi"		"参与队长竞选?"
+	}
+	
+	"WhoCampaigned"
+	{
+		"chi"		"<{olive}Picker{default}> {green}{1}{default} {blue}参与{default}了竞选"
+	}
+	
+	"WhoDroped"
+	{
+		"#format"	"{1:s}"
+		"chi"		"<{olive}Picker{default}> {green}{1}{default} {red}放弃{default}了竞选"
+	}
+	
+	"FinishCampaign"
+	{
+		"chi"		"<{olive}Picker{default}> 竞选时间已截止..."
+	}
+	
+	"NoOneCampaign"
+	{
+		"chi"		"<{olive}Picker{default}> 无人参与竞选，系统随机选择2名队长"
+	}
+	
+	"OnlyOneCampaign"
+	{
+		"chi"		"<{olive}Picker{default}> 只有1人参与竞选，系统随机补充另1位队长"
+	}
+	
+	"ChooseCampaign"
+	{
+		"chi"		"<{olive}Picker{default}> 系统将从竞选者中选出队长"
+	}
+	
+	"RandomPlayer"
+	{
+		"chi"		"[ 随机选择 ]"
+	}
+	"FirstRound"
+	{
+		"chi"		"第1轮: 你挑选1人"
+	}
+	"SecondRound"
+	{
+		"chi"		"第2轮: 你挑选1人"
+	}
+	"ThirdRound"
+	{
+		"chi"		"第3轮: 你挑选1人"
+	}
+	"FourthRound"
+	{
+		"chi"		"第4轮: 你挑选2人"
+	}
+	"FifthRound"
+	{
+		"chi"		"第5轮: 你挑选1人"
+	}
+	"CantStartVote"
+	{
+		"chi"		"当前{olive}无法发起投票{default}, {red}{1}{default}秒后可重试"
+	}
+	"PickTime"
+	{
+		"chi"		"你挑选1人"
+	}
+	"WhoIsFairPicked"
+	{
+		"chi"		"<{olive}Picker{default}> {green}{1}{default} ({teamcolor}{2}{default}) 选择了1位玩家"
+	}
+	"BothPicked"
+	{
+		"chi"		"<{olive}Picker{default}> {green}{1}{default}被随机分配至{teamcolor}{2}{default}队伍 (因为选人相同)"
+	}
+	"PickAgain"
+	{
+		"chi"		"<{olive}Picker{default}> 请{olive}重新选择{default}1位玩家"
+	}
+	"FairPickJoinTeam"
+	{
+		"chi"		"<{olive}Picker{default}> {green}%N{default}被选至{teamcolor}%t{default}队伍"
+	}
+	"Survivor"
+	{
+		"chi"		"生还者"
+	}
+	"Infected"
+	{
+		"chi"		"感染者"
+	}
+	"Spectator"
+	{
+		"chi"		"旁观者"
+	}
+}

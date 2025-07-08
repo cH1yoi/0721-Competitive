@@ -1,0 +1,10 @@
+"hostname"
+{	"10721"
+	{
+		"hostname"		"0721 ZoneMod #1"
+	}
+	"20721"
+	{
+		"hostname"		"0721 ZoneMod #2"
+	}
+}

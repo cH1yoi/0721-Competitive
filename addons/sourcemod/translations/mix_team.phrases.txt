@@ -1,0 +1,96 @@
+"Phrases"
+{
+	"TAG"
+	{
+		"en"			"<{green}Mix Team{default}> "
+		"chi"			"<{green}Mix Team{default}> "
+	}
+
+	"CANT_CHANGE_TEAM"
+	{
+		"en"			"You cannot change the team {olive}during the mix"
+		"chi"			"无法在Mix期间{olive}更改队伍"
+	}
+
+	"VOTE_COULDOWN"
+	{
+		"#format"		"{1:d}"
+		"en"			"A vote cannot be called at this moment, try again in a {1} second"
+		"chi"			"此时无法发起投票，请在 {1} 秒后再试"
+	}
+	
+	"NOT_ENOUGH_PLAYERS"
+	{
+		"#format"		"{1:d}"
+		"en"			"There are not enough players in the game ({olive}Need {1} players{default})"
+		"chi"			"游戏中没有足够的玩家 ({olive}需要 {1} 名玩家{default})"
+	}
+
+	"SECOND_HALF_OF_ROUND"
+	{
+		"en"			"Impossible to mix: now the second half of the round"
+		"chi"			"无法进行mix: {olive}回合已经过了一半"
+	}
+
+	"ROUND_STARTED"
+	{
+		"en"			"Impossible to mix: the round has already begun"
+		"chi"			"无法进行mix：{olive}回合已经开始"
+	}
+
+	"PLAYER_DISCONNECTED"
+	{
+		"en"			"Mix rollback: mix member left"
+		"chi"			"Mix 成员离开。{olive}恢复队伍状态"
+	}
+
+	"PLAYER_CHANGED_TEAM"
+	{
+		"#format"		"{1:N}"
+		"en"			"Mix rollback: mix member {olive}{1}{default} changed team"
+		"chi"			"Mix 队伍状态恢复：{olive}{1}{default} 更改了团队"
+	}
+
+	"ABORT_MIX_SUCCESS"
+	{
+		"#format"		"{1:N}"
+		"en"			"Mix rollback: mix member {olive}{1} {default}interrupted the mix"
+		"zh"			"Mix 队伍状态恢复：{olive}{1} {default}终止了Mix"
+	}
+
+	"ABORT_MIX_FAIL"
+	{
+		"#format"		"{1:d}"
+		"en"			"The mix cannot be interrupted at at this moment, try again in {1} seconds"
+		"chi"			"此时无法终止Mix, 请在 {1} 秒后重试"
+	}
+
+	"ALREADY_IN_PROGRESS"
+	{
+		"en"			"A mix session is in progress!"
+		"chi"			"已经有一个mix在进行中!"
+	}
+
+	"MENU_TITLE"
+	{
+		"en"			"Start voting for the mix:"
+		"chi"			"投票开始Mix:"
+	}
+
+	"MENU_TITLE_FORCE"
+	{
+		"en"			"Start mix:"
+	}
+
+	"MENU_ABORT"
+	{
+		"en"            "Abort mix\n "
+		"chi"           "中止Mix\n "
+	}
+	
+	"VOTE_PASS"
+	{
+    	"en"        "Vote passed! Starting team mix..."
+    	"chi"       "投票通过! 开始mix分队..."
+	}
+}

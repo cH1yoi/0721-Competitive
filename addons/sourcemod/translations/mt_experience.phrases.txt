@@ -1,0 +1,21 @@
+"Phrases"
+{
+    "VOTE_TITLE"
+    {
+        "en"        "Start Mix Teams by Experience"
+        "chi"		"开始Mix分队(EXP分队)"
+    }
+
+    "MENU_ITEM"
+    {
+        "en"        "Mix Teams by Experience"
+        "chi"       "Experience (EXP分队)"
+    }
+
+    "PLAYER_UNKNOWN_RATING"
+    {
+        "#format"   "{1:N}"
+        "en"        "Cannot determine {olive}{1}{default}'s rating"
+        "chi"       "无法获取 {olive}{1}{default} 的评分"
+    }
+}

@@ -1,0 +1,33 @@
+"Phrases"
+{
+	"BRACKET_START"
+	{
+		"en"			"┌ "
+	}
+
+	"BRACKET_MIDDLE"
+	{
+		"en"			"├ "
+	}
+
+	"BRACKET_END"
+	{
+		"en"			"└ "
+	}
+
+	"TAG"
+	{
+		"en"			"<{green}Round Score{default}> "
+	}
+
+	"SCORE"
+	{
+		"#format"		"{1:s},{2:d},{3:s},{4:d},{5:s},{6:d},{7:s},{8:s}{9:d},{10:s},{11:d},{12:s}"
+		"en"			"SI: {1}{olive}{2}{default} ({3}{4} [{5}{6}{7}%%]) {green}|{default} CI: {8}{olive}{9} {green}|{default} FF: {10}{olive}{11} {green}| {blue}{12}"
+	}
+
+	"ROUND_NOT_LIVE"
+	{
+		"en"			"The round hasn't started yet"
+	}
+}

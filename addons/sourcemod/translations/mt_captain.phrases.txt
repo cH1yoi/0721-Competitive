@@ -1,0 +1,60 @@
+"Phrases"
+{
+    "VOTE_TITLE"
+	{
+		"en"			"Start mixing teams with captains"
+		"chi"			"开始Mix分队(队长选人)"
+	}
+
+	"MENU_ITEM"
+	{
+		"en"			"Mixing teams with captains"
+		"chi"			"Captain (队长选人)"
+	}
+
+	"NEW_FIRST_CAPITAN"
+	{
+		"#format"		"{1:N},{2:d}"
+		"en"			"Team {blue}survivors {default}captain {green}{1} {default}(votes {2})"
+		"chi"			"{blue}生还者 {default}队长 {green}{1} {default}({2} 票)"
+	}
+
+	"NEW_SECOND_CAPITAN"
+	{
+		"#format"		"{1:N},{2:d}"
+		"en"			"Team {red}infected {olive}captain {green}{1} {default}(votes {2})"
+		"chi"			"{red}感染者 {olive}队长 {green}{1} {default}({2} 票)"
+	}
+
+	"PICK_SURVIVOR_TEAM"
+	{
+		"#format"		"{1:N},{2:N}"
+		"en"			"The captain {blue}{1} {default}chose the player {green}{2}"
+		"chi"			"队长 {blue}{1} {default}选择了 {green}{2}"
+	}
+
+	"PICK_INFECTED_TEAM"
+	{
+		"#format"		"{1:N},{2:N}"
+		"en"			"The captain {red}{1} {default}chose the player {green}{2}"
+		"chi"			"队长 {red}{1} {default}选择了 {green}{2}"
+	}
+
+	"MENU_TITLE_FIRST_CAPITAN"
+	{
+		"en"			"Choose a first team captain"
+		"chi"			"选择第一个队长"
+	}
+
+	"MENU_TITLE_SECOND_CAPITAN"
+	{
+		"en"			"Choose a second team captain"
+		"chi"			"选择第二个队长"
+	}
+
+	"MENU_TITLE_PICK_TEAMS"
+	{
+		"en"			"Choose an ally"
+		"chi"			"选择一个队友"
+	}
+}

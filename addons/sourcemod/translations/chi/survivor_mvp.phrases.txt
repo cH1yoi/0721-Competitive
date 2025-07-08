@@ -1,0 +1,43 @@
+"Phrases"
+{
+	"Your Rank SI"
+	{
+		"chi"		"{blue}你的排名{green}SI{default}: {olive}#%d - {blue}({default}%d {green}伤害 {blue}[{default}%.0f%%{blue}]{olive}, {default}%d {green}击杀 {blue}[{default}%.0f%%{blue}])"
+	}
+	"Your Rank CI"
+	{
+		"chi"		"{blue}你的排名{green}CI{default}: {olive}#%d {blue}({default}%d {green}小僵尸 {blue}[{default}%.0f%%{blue}])"
+	}
+	"Your Rank FF"
+	{
+		"chi"		"{blue}你的排名{green}FF{default}: {olive}#%d {blue}({default}%d {green}友伤 {blue}[{default}%.0f%%{blue}])"
+	}
+	"No One"
+	{
+		"chi"		"(无人上榜)"
+	}
+	"MVP No Action"
+	{
+		"chi"		"{blue}[{default}MVP{blue}]{default} {blue}({default}暂无数据{blue}){default}"
+	}
+	"SI MVP"
+	{
+		"chi"		"{blue}[{default}MVP{blue}] SI: {olive}%s {blue}({default}%d {green}伤害 {blue}[{default}%.0f%%{blue}]{olive}, {default}%d {green}击杀 {blue}[{default}%.0f%%{blue}])"
+	}
+	"No SI MVP"
+	{
+		"chi"		"{blue}[{default}MVP{blue}] SI: {blue}({default}无人上榜{blue}){default}"
+	}
+	"CI MVP"
+	{
+		"chi"		"{blue}[{default}MVP{blue}] CI: {olive}%s {blue}({default}%d {green}小僵尸 {blue}[{default}%.0f%%{blue}])"
+	}
+	"NO FF LVP"
+	{
+		"chi"		"{blue}[{default}LVP{blue}] FF{default}: {green}无人黑枪!{default}"
+	}
+	"FF LVP"
+	{
+		"chi"		"{blue}[{default}LVP{blue}] FF{default}: {olive}%s {blue}({default}%d {green}友伤 {blue}[{default}%.0f%%{blue}]){default}"
+	}
+}

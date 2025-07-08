@@ -1,0 +1,151 @@
+﻿"Phrases"
+{
+	"Usage"
+	{
+		"en"		"{olive}<FakeLag>{orange}Usage: {default}!fakelag <target> <millseconds>"
+		"chi"		"{olive}<FakeLag>{orange}用法：{default}!fakelag <玩家名> <延迟增值>"
+	}
+	"Usage_Myfl"
+	{
+		"en"		"{olive}<FakeLag>{orange}Usage: {default}!myfakelag <millseconds>"
+		"chi"		"{olive}<FakeLag>{orange}用法：{default}!myfakelag <延迟增值>"
+	}
+	"No_Target"
+	{
+		"en"		"{olive}<FakeLag>{default}Unable to find target "
+		"chi"		"{olive}<FakeLag>{default}未找到目标玩家"
+	}
+	"Not_Ingame"
+	{
+		"en"		"{olive}<FakeLag>{default}Player {orange}%N {default}is not in game yet."
+		"chi"		"{olive}<FakeLag>{default}玩家 {orange}%N {default}未加入游戏。"
+	}
+	"Fake_Client"
+	{
+		"en"		"{olive}<FakeLag>{default}Player {orange}%N {default}is a fake client and can't be lagged."
+		"chi"		"{olive}<FakeLag>{default}玩家 {orange}%N {default}不是真实用户，无法增加其延迟。"
+	}
+	"Set_Fakelag"
+	{
+		"#format"	"{1:d},{2:N},{3:N}"
+		"en"		"{olive}<FakeLag>{default}Admin({olive}{2}{default}) set fake lag of {orange}{1}ms {default}on player {teamcolor}{3}"
+		"chi"		"{olive}<FakeLag>{default}管理员({olive}{2}{default}) 为 {teamcolor}{3} {default}增加 {orange}{1}ms {default}延迟"
+	}
+	"Set_MyFakelag"
+	{
+		"#format"	"{1:d},{2:N}"
+		"en"		"{olive}<FakeLag>{default}Player({teamcolor}{2}{default}) set fake lag of {orange}{1}ms {default}for himself"
+		"chi"		"{olive}<FakeLag>{default}玩家({teamcolor}{2}{default}) 为自己增加 {orange}{1}ms {default}延迟"
+	}
+	"InValid_Fakelag"
+	{
+		"en"		"{olive}<FakeLag>{default}The Fake lag you type is invalid, the value should set between {orange}%d {default}and {orange}%d"
+		"chi"		"{olive}<FakeLag>{default}fakelag设定值超出限定范围（合理值：{orange}%d {default}- {orange}%d{default}）"
+	}
+	"vote_to_start"
+	{
+		"en"		"{olive}<FakeLag> {teamcolor}%N {default}initiate a vote for equalizing pings."
+		"chi"		"{olive}<FakeLag> {teamcolor}%N {default}发起一个投票（平衡双方ping值）。"
+	}
+	"not_enough_player"
+	{
+		"en"		"{olive}<FakeLag>{default}Need {orange}%d {default}players in teams to start the vote."
+		"chi"		"{olive}<FakeLag>{default} 需 {orange}%d {default}名玩家加入队伍才能发起投票"
+	}
+	"Vote_Tittle"
+	{
+		"en"		"Equalize pings ?"
+		"chi"		"是否平衡双方ping值?"
+	}
+	"already_vote"
+	{
+		"en"		"{olive}<FakeLag>{default}Can't start. There's a vote processing."
+		"chi"		"{olive}<FakeLag>{default}暂无法发起投票，因有投票正在进行"
+	}
+	"Vote_Pass_Tittle"
+	{
+		"en"		"Equalizing pings"
+		"chi"		"正在平衡双方ping值"
+	}
+	"eping_notice_player"
+	{
+		"en"		"{olive}<FakeLag>{default}System set fake lag of {orange}%dms {default}on you for equalizing."
+		"chi"		"{olive}<FakeLag>{default}系统自动为你设置 {orange}%dms {default}的延迟"
+	}
+	"equalize_finish"
+	{
+		"en"		"{olive}<FakeLag>{default}Equalizing finishes. The total difference in variation is {orange}%dms {default}. "
+		"chi"		"{olive}<FakeLag>{default}平衡pings值完毕，变动的总差值为 {orange}%dms {default}。"
+	}
+	"show_ping"
+	{
+		"en"		"{teamcolor}%N: {default}%.1fms"
+		"chi"		"{teamcolor}%N: {default}%.1fms"
+	}
+	"show_ping_fl"
+	{
+		"en"		"{teamcolor}%N: {default}%.1fms ( %.1fms + {orange}%.1fms {default})"
+		"chi"		"{teamcolor}%N: {default}%.1fms ( %.1fms + {orange}%.1fms {default})"
+	}
+	"wait_10s"
+	{
+		"en"		"{olive}<FakeLag>{default}Please wait{orange} 10 seconds{default} for equalize ping"
+		"chi"		"{olive}<FakeLag>{default}请等待{orange}10秒{default}后平衡延迟"
+	}
+	"Cancel_Vote_Title"
+	{
+		"en"		"Cancel Equalize pings ?"
+		"chi"		"是否取消延迟平衡?"
+	}
+	"Cancel_Vote_Pass_Title"
+	{
+		"en"		"Cancel Equalize pings"
+		"chi"		"正在取消延迟平衡"
+	}
+	"vote_to_cancel"
+	{
+		"en"		"{olive}<FakeLag> {teamcolor}%N {default}initiate a vote for cancel equalize pings."
+		"chi"		"{olive}<FakeLag> {teamcolor}%N {default}发起一个投票（取消延迟平衡）。"
+	}
+	"force_equalize_start"
+	{
+		"en"		"{olive}<FakeLag> {orange}%N {default} has forced the equalization of ping. Please wait for 10 seconds."
+		"chi"		"{olive}<FakeLag> {orange}%N {default}强制开始延迟平衡,请等待10秒"
+	}
+	"force_equalize_cancel"
+	{
+		"en"		"{olive}<FakeLag> {orange}%N {default} has canceled the ping equalization and restored the default latency."
+		"chi"		"{olive}<FakeLag> {orange}%N {default}已取消延迟平衡,恢复默认延迟"
+	}
+	"vote_to_team"
+	{
+    	"en"        "{olive}<FakeLag> {teamcolor}%N {default} initiated a vote to equalize team pings."
+		"chi"		"{olive}<FakeLag> {teamcolor}%N {default}发起一个投票（平衡团队ping值）。"
+	}
+	"Vote_team"
+	{
+    	"en"        "Do you want to equalize team pings?"
+		"chi"		"是否平衡团队ping值?"
+	}
+	"Vote_Pass_team"
+	{
+    	"en"        "Equalizing team pings..."
+		"chi"		"正在平衡团队ping值"
+	}
+	"Usage_Safl"
+    {
+        "en"        "Usage: /safl <target_ping>"
+		"chi"       "用法: /safl <目标延迟值>"
+    }
+    "set_all_fakelag"
+    {
+        "#format"   "{1:N},{2:d}"
+        "en"        "{olive}<FakeLag> {orange}%N{1} has set all players' ping to {2}"
+		"chi"       "{olive}<FakeLag> {orange}%N{1} 已将所有玩家的延迟设置为 {2}"
+    }
+	"spec_no_access"
+    {
+        "en"        "{olive}<FakeLag> {default}Spectators cannot start votes!"
+        "chi"       "{olive}<FakeLag> {default}旁观者无法发起投票!"
+    }
+}

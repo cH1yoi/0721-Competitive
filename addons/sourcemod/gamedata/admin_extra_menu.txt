@@ -1,0 +1,94 @@
+"Games"
+{
+	"left4dead2"
+	{
+		"Offsets"
+		{
+			"RoundRespawn_Offset"
+			{
+				"linux"		"25" // 0x19
+			}
+
+			"RoundRespawn_Byte" // JNZ => JNS
+			{
+				"linux"		"117" // 0x75
+			}
+
+			"m_nFallenSurvivors"
+			{
+				"linux"		"8"
+			}
+
+			"m_FallenSurvivorTimer"
+			{
+				"linux"		"12"
+			}
+		}
+
+		"Signatures"
+		{
+			/* CTerrorPlayer::RoundRespawn(void) */
+			"CTerrorPlayer::RoundRespawn"
+			{
+				"library"	"server"
+				"linux"		"@_ZN13CTerrorPlayer12RoundRespawnEv"
+			}
+
+			/* TerrorNavMesh::GetLastCheckpoint(TerrorNavMesh *__hidden this) */
+			"TerrorNavMesh::GetLastCheckpoint"
+			{
+				"library"	"server"
+				"linux"		"@_ZNK13TerrorNavMesh17GetLastCheckpointEv"
+			}
+
+			/* Checkpoint::GetLargestArea(Checkpoint *__hidden this) */
+			"Checkpoint::GetLargestArea"
+			{
+				"library"	"server"
+				"linux"		"@_ZNK10Checkpoint14GetLargestAreaEv"
+			}
+
+			"NextBotCreatePlayerBot<Smoker>"
+			{
+				"library"	"server"
+				"linux"		"@_Z22NextBotCreatePlayerBotI6SmokerEPT_PKc"
+			}
+
+			"NextBotCreatePlayerBot<Boomer>"
+			{
+				"library"	"server"
+				"linux"		"@_Z22NextBotCreatePlayerBotI6BoomerEPT_PKc"
+			}
+
+			"NextBotCreatePlayerBot<Hunter>"
+			{
+				"library"	"server"
+				"linux"		"@_Z22NextBotCreatePlayerBotI6HunterEPT_PKc"
+			}
+
+			"NextBotCreatePlayerBot<Spitter>"
+			{
+				"library"	"server"
+				"linux"		"@_Z22NextBotCreatePlayerBotI7SpitterEPT_PKc"
+			}
+
+			"NextBotCreatePlayerBot<Jockey>"
+			{
+				"library"	"server"
+				"linux"		"@_Z22NextBotCreatePlayerBotI6JockeyEPT_PKc"
+			}
+
+			"NextBotCreatePlayerBot<Charger>"
+			{
+				"library"	"server"
+				"linux"		"@_Z22NextBotCreatePlayerBotI7ChargerEPT_PKc"
+			}
+
+			"NextBotCreatePlayerBot<Tank>"
+			{
+				"library"	"server"
+				"linux"		"@_Z22NextBotCreatePlayerBotI4TankEPT_PKc"
+			}
+		}
+	}
+}

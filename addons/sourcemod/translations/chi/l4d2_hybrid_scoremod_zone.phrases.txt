@@ -1,0 +1,63 @@
+"Phrases"
+{
+	"Bonus"
+	{
+		"chi"		"奖励分"
+	}
+	"Hybrid Bonus"
+	{
+		"chi"		"混合奖励"
+	}
+	"Map Info"
+	{
+		"chi"		"地图信息"
+	}
+	"Distance"
+	{
+		"chi"		"路程分"
+	}
+	"Total Bonus"
+	{
+		"chi"		"总奖励分"
+	}
+	"Health Bonus"
+	{
+		"chi"		"实血奖励"
+	}
+	"Damage Bonus"
+	{
+		"chi"		"伤害奖励"
+	}
+	"Pills Bonus"
+	{
+		"chi"		"药品奖励"
+	}
+	"MAX"
+	{
+		"chi"		"最高"
+	}
+	"Tiebreaker"
+	{
+		"chi"		"平局奖励"
+	}
+	"Equal"
+	{
+		"chi"		"两队平分秋色, 无法决出胜者!"
+	}
+	"wiped out"
+	{
+		"chi"		"团灭"
+	}
+	"bonus depleted"
+	{
+		"chi"		"奖励耗尽"
+	}
+	"Round"
+	{
+		"chi"		"回合"
+	}
+	"Team"
+	{
+		"chi"		"队伍"
+	}
+}

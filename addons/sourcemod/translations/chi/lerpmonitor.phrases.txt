@@ -1,0 +1,31 @@
+"Phrases"
+{
+	"Move Spec"
+	{
+		"chi"		"{teamcolor}%N {default}因lerp设置为 {teamcolor}%.01f{default} 而被移至旁观位"
+	}
+	"Illegal Lerp"
+	{
+		"chi"		"无效lerp (最低: {teamcolor}%.01f{default}, 最高: {teamcolor}%.01f{default})"
+	}
+	"Kick Note"
+	{
+		"chi"		"无效lerp (最低: %.01f, 最高: %.01f)"
+	}
+	"Kick Lerp"
+	{
+		"chi"		"{teamcolor}%N {default}因lerp设置为 {teamcolor}%.01f{default} 而被踢出游戏"
+	}
+	"Chance"
+	{
+		"chi"		"次"
+	}
+	"Move Illegal"
+	{
+		"chi"		"{teamcolor}%N {default}被移至旁观位 (违规修改lerp)!"
+	}
+	"Change Back"
+	{
+		"chi"		"对局中违规修改lerp! 加入游戏需改回"
+	}
+}

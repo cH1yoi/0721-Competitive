@@ -1,0 +1,137 @@
+name: Auto Sync to Servers
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'addons/**'
+      - 'cfg/**'
+      - 'scripts/**'
+      - 'sound/**'
+      - 'whitelist.cfg'
+
+jobs:
+  sync:
+    name: Auto Sync to Servers Done
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 2
+
+    - name: Sync to all servers
+      run: |
+        echo "🔍 Detecting file changes..."
+
+        CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
+        DELETED_FILES=$(git diff --name-only --diff-filter=D HEAD~1 HEAD)
+
+        if [ -z "$CHANGED_FILES" ] && [ -z "$DELETED_FILES" ]; then
+          echo "ℹ️ No file changes detected"
+          exit 0
+        fi
+
+        echo "📁 Changed files: $CHANGED_FILES"
+        echo "🗑️ Deleted files: $DELETED_FILES"
+
+        should_skip_file() {
+          local file="$1"
+          [[ "$file" == .git* ]] || \
+          [[ "$file" == .github/* ]] || \
+          [[ "$file" == *.md ]] || \
+          [[ "$file" == LICENSE ]] || \
+          [[ "$file" == "Dedicated Server Install Guide"* ]] || \
+          [[ "$file" == *.sh ]] || \
+          [[ "$file" == "cfg/server.cfg" ]] || \
+          [[ "$file" == "addons/sourcemod/configs/databases.cfg" ]] || \
+          [[ "$file" == addons/sourcemod/configs/sourcebans/* ]] || \
+          [[ "$file" == cfg/spcontrol_server/* ]] || \
+          [[ "$file" == addons/sourcemod/scripting/* ]] || \
+          [[ "$file" == "*.json" ]] || \
+          [[ "$file" == "addons/sourcemod/data/hostname.txt" ]] || \
+          [[ "$file" == "addons/sourcemod/configs/advertisements.txt" ]]
+        }
+
+        DEPLOY_FILES=""
+        DELETE_FILES=""
+
+        for file in $DELETED_FILES; do
+          if ! should_skip_file "$file"; then
+            DELETE_FILES="$DELETE_FILES $file"
+          fi
+        done
+
+        for file in $CHANGED_FILES; do
+          if ! should_skip_file "$file" && [ -f "$file" ]; then
+            DEPLOY_FILES="$DEPLOY_FILES $file"
+          fi
+        done
+
+        if [ -z "$DEPLOY_FILES" ] && [ -z "$DELETE_FILES" ]; then
+          echo "ℹ️ All changes are in excluded files, skipping deployment"
+          exit 0
+        fi
+
+        echo "📤 Files to deploy: $DEPLOY_FILES"
+        echo "🗑️ Files to delete: $DELETE_FILES"
+
+        if [ -z "${{ secrets.SERVERS_CONFIG }}" ]; then
+          echo "⚠️ SERVERS_CONFIG secret not found, skipping deployment"
+          exit 0
+        fi
+
+        cat << 'EOF' > servers_config.json
+        ${{ secrets.SERVERS_CONFIG }}
+        EOF
+
+        if ! jq empty servers_config.json 2>/dev/null; then
+          echo "❌ Invalid JSON format in SERVERS_CONFIG"
+          cat servers_config.json
+          exit 1
+        fi
+
+        SERVER_COUNT=$(jq '. | length' servers_config.json)
+        echo "🖥️ Found $SERVER_COUNT server(s) to sync"
+
+        sudo apt-get update && sudo apt-get install -y sshpass
+
+        for i in $(seq 0 $((SERVER_COUNT-1))); do
+          SERVER_NAME=$(jq -r ".[$i].name" servers_config.json)
+          SERVER_HOST=$(jq -r ".[$i].host" servers_config.json)
+          SERVER_USER=$(jq -r ".[$i].user" servers_config.json)
+          SERVER_PASSWORD=$(jq -r ".[$i].password" servers_config.json)
+          SERVER_PATHS=$(jq -r ".[$i].paths" servers_config.json)
+
+          echo "🚀 Processing $SERVER_NAME..."
+
+          if [ "$SERVER_HOST" = "null" ] || [ "$SERVER_USER" = "null" ] || [ "$SERVER_PASSWORD" = "null" ] || [ "$SERVER_PATHS" = "null" ]; then
+            echo "⚠️ $SERVER_NAME configuration incomplete, skipping"
+            continue
+          fi
+
+          mkdir -p "$HOME/.ssh"
+          ssh-keyscan -H "$SERVER_HOST" >> "$HOME/.ssh/known_hosts" 2>/dev/null
+
+          jq -r ".[$i].paths[]" servers_config.json | while read -r path; do
+            echo "  📂 Syncing to $SERVER_NAME: $path"
+
+            for file in $DEPLOY_FILES; do
+              echo "    ⬆️ Uploading: $file"
+              remote_dir="$path/$(dirname "$file")"
+              sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no "$SERVER_USER@$SERVER_HOST" "mkdir -p '$remote_dir'"
+              sshpass -p "$SERVER_PASSWORD" scp -o StrictHostKeyChecking=no "$file" "$SERVER_USER@$SERVER_HOST:$path/$file"
+            done
+
+            for file in $DELETE_FILES; do
+              echo "    🗑️ Deleting: $file"
+              sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no "$SERVER_USER@$SERVER_HOST" "rm -f '$path/$file'" || true
+            done
+          done
+
+          echo "  ✅ $SERVER_NAME completed successfully"
+        done
+
+        rm -f servers_config.json
+        echo "🎉 Sync process completed!"

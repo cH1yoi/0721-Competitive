@@ -1,0 +1,39 @@
+"Phrases"
+{
+	"Announce_Chapter"
+	{
+		"chi"		"{default}[{green}!{default}] {default}本关分差: {green}{1}"
+	}
+	
+	"Announce_Total"
+	{
+		"chi"		"{default}[{olive}!{default}] {default}总分差: {olive}{1}"
+	}
+	
+	"Announce_ElseChapter"
+	{
+		"chi"		"{default}[{lightgreen}!{default}] {default}分差: {lightgreen}{1}"
+	}
+	
+	// The following translations are made optional
+	
+	//"Announce_Survivor"
+	//{
+	//	"chi"		"{default}[{blue}!{default}] 生还者: {blue}{1}{default} 分"
+	//}
+	//
+	//"Announce_Infected"
+	//{
+	//	"chi"		"{default}[{red}!{default}] 感染者: {red}{1}{default} 分"
+	//}
+	
+	"Announce_ComebackWithDistance"
+	{
+		"chi"		"{default}[{green}!{default}] 超分需要: {olive}{1}{default}"
+	}
+	
+	"Announce_ComebackWithBonus"
+	{
+		"chi"		"{default}[{green}!{default}] 超分需要: {olive}{1}{default} + {green}{2}{default}"
+	}
+}
