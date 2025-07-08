@@ -218,23 +218,3 @@ bool IsTank(int client)
         
     return GetEntProp(client, Prop_Send, "m_zombieClass") == 8 && IsPlayerAlive(client);
 }
-
-bool IsInfected(int client)
-{
-    if (!IsClientInGame(client))
-        return false;
-        
-    return GetClientTeam(client) == 3;
-}
-
-int FindTankClient()
-{
-    for (int i = 1; i <= MaxClients; i++)
-    {
-        if (IsTank(i) && IsPlayerAlive(i))
-        {
-            return i;
-        }
-    }
-    return -1;
-}
