@@ -52,6 +52,10 @@ jobs:
           do
             echo -e "\nCompiling $file..."
             spcomp -w234 -w217 -O2 -v2 -i $SCRIPTS_PATH/include $file
+            spcomp -E -w234 -w217 -O2 -v2 -i $SCRIPTS_PATH/include $file || {
+              errors=$((errors + 1))
+              continue
+            }
           done
           if [ "$errors" -gt 0 ]; then
             echo -e "\n$errors plugin(s) failed to compile."
