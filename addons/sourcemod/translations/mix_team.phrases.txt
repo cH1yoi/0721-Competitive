@@ -15,7 +15,7 @@
 	"VOTE_COULDOWN"
 	{
 		"#format"		"{1:d}"
-		"en"			"A vote cannot be called at this moment, try again in a {1} second"
+		"en"			"A vote cannot be called at this moment, try again in {1} seconds"
 		"chi"			"此时无法发起投票，请在 {1} 秒后再试"
 	}
 	
@@ -51,20 +51,6 @@
 		"chi"			"Mix 队伍状态恢复：{olive}{1}{default} 更改了团队"
 	}
 
-	"ABORT_MIX_SUCCESS"
-	{
-		"#format"		"{1:N}"
-		"en"			"Mix rollback: mix member {olive}{1} {default}interrupted the mix"
-		"zh"			"Mix 队伍状态恢复：{olive}{1} {default}终止了Mix"
-	}
-
-	"ABORT_MIX_FAIL"
-	{
-		"#format"		"{1:d}"
-		"en"			"The mix cannot be interrupted at at this moment, try again in {1} seconds"
-		"chi"			"此时无法终止Mix, 请在 {1} 秒后重试"
-	}
-
 	"ALREADY_IN_PROGRESS"
 	{
 		"en"			"A mix session is in progress!"
@@ -79,18 +65,13 @@
 
 	"MENU_TITLE_FORCE"
 	{
-		"en"			"Start mix:"
-	}
-
-	"MENU_ABORT"
-	{
-		"en"            "Abort mix\n "
-		"chi"           "中止Mix\n "
+		"en"			"Force start mix:"
+		"chi"			"强制开始Mix:"
 	}
 	
 	"VOTE_PASS"
 	{
-    	"en"        "Vote passed! Starting team mix..."
-    	"chi"       "投票通过! 开始mix分队..."
+    	"en"        	"Vote passed! Starting team mix..."
+    	"chi"       	"投票通过! 开始mix分队..."
 	}
 }

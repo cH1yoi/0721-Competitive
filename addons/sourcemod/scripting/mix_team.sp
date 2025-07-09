@@ -15,7 +15,7 @@ public Plugin myinfo = {
     name        = "MixTeam",
     author      = "TouchMe",
     description = "Adds an API for mix in versus mode",
-    version     = "build_0011",
+    version     = "build_0721",
     url         = "https://github.com/TouchMe-Inc/l4d2_mix_team"
 };
 
@@ -65,7 +65,6 @@ public Plugin myinfo = {
 enum struct MixInfo
 {
     int minPlayers;
-    int abortDelay;
 }
 
 enum MixState
@@ -79,7 +78,6 @@ MixState g_eMixState = MixState_None;
 
 int
     g_iMixIndex = INVALID_INDEX,
-    g_iAbortDelay = 0,
     g_iClientTeamBeforePlayerMix[MAXPLAYERS + 1];
 
 bool
@@ -184,8 +182,6 @@ int Native_AddMix(Handle hPlugin, int iParams)
     MixInfo mix;
 
     mix.minPlayers = GetNativeCell(1);
-
-    mix.abortDelay = GetNativeCell(2);
 
     return PushArrayArray(g_hMixList, mix);
 }
@@ -320,7 +316,6 @@ void Event_RoundStart(Event event, const char[] sEventName, bool bDontBroadcast)
     g_bRoundIsLive = false;
     g_eMixState = MixState_None;
     g_iMixIndex = INVALID_INDEX;
-    g_iAbortDelay = 0;
 
     for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
     {
@@ -496,11 +491,6 @@ void ShowMixMenu(int iClient, bool bForce)
     SetMenuTitle(hMenu, "%T", bForce ? "MENU_TITLE_FORCE" : "MENU_TITLE", iClient);
 
     char szItemData[8], szItemName[64];
-
-    FormatEx(szItemData, sizeof(szItemData), "%d -1", bForce);
-    FormatEx(szItemName, sizeof(szItemName), "%T", "MENU_ABORT", iClient);
-    AddMenuItem(hMenu, szItemData, szItemName, IsMixStateInProgress() ? ITEMDRAW_DEFAULT : ITEMDRAW_DISABLED);
-
     int iArraySize = GetArraySize(g_hMixList);
 
     for (int iIndex = 0; iIndex < iArraySize; iIndex ++)
@@ -530,42 +520,26 @@ int HandleMenu(Menu hMenu, MenuAction hAction, int iClient, int iItem)
             bool bForce = view_as<bool>(StringToInt(szForce));
             int iMixIndex = StringToInt(szMixIndex);
 
-            if (iMixIndex == -1)
-            {
-                if (!IsMixStateInProgress())
-                {
-                    ShowMixMenu(iClient, bForce);
-                    return 0;
-                }
-
-                if (!g_bClientMixMember[iClient] && !bForce)
-                {
-                    ShowMixMenu(iClient, bForce);
-                    return 0;
-                }
-
-                int iEndTime = g_iAbortDelay - GetTime();
-
-                if (iEndTime <= 0 || bForce)
-                {
-                    CPrintToChatAll("%t%t", "TAG", "ABORT_MIX_SUCCESS", iClient);
-                    AbortPlayerMix();
-                }
-
-                else {
-                    CPrintToChat(iClient, "%T%T", "TAG", iClient, "ABORT_MIX_FAIL", iClient, iEndTime);
-                }
-
-                ShowMixMenu(iClient, bForce);
-
-                return 0;
-            }
-
             if (bForce)
             {
+                if (IsMixStateInProgress())
+                {
+                    CPrintToChat(iClient, "%T%T", "TAG", iClient, "ALREADY_IN_PROGRESS", iClient);
+                    return 0;
+                }
+
+                int iMinPlayers = GetMixMinPlayers(iMixIndex);
+                int iTotalPlayers = GetPlayerCount();
+
+                if (iTotalPlayers < iMinPlayers)
+                {
+                    CPrintToChat(iClient, "%T%T", "TAG", iClient, "NOT_ENOUGH_PLAYERS", iClient, iMinPlayers);
+                    return 0;
+                }
+
                 g_iMixIndex = iMixIndex;
 
-                for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer ++)
+                for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
                 {
                     g_bClientMixMember[iPlayer] = false;
 
@@ -582,11 +556,9 @@ int HandleMenu(Menu hMenu, MenuAction hAction, int iClient, int iItem)
                     }
                 }
 
-                g_iAbortDelay = GetTime() + GetMixAbortDelay(g_iMixIndex);
                 SetAllClientSpectator();
 
                 if (SetMixState(MixState_InProgress) == Plugin_Continue) {
-                    FinishPlayerMix();
                 }
 
                 return 0;
@@ -620,7 +592,7 @@ int HandleMenu(Menu hMenu, MenuAction hAction, int iClient, int iItem)
             g_iMixIndex = iMixIndex;
             SetMixState(MixState_Voting);
 
-            for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer ++)
+            for (int iPlayer = 1; iPlayer <= MaxClients; iPlayer++)
             {
                 g_bClientMixMember[iPlayer] = false;
 
@@ -766,8 +738,6 @@ public int HandlerVoteMix(NativeVote hVote, MenuAction action, int param1, int p
 
 void RunPlayerMix()
 {
-    g_iAbortDelay = GetTime() + GetMixAbortDelay(g_iMixIndex);
-
     SetAllClientSpectator();
 
     if (SetMixState(MixState_InProgress) == Plugin_Continue) {
@@ -828,14 +798,6 @@ int GetMixMinPlayers(int iIndex)
     GetArrayArray(g_hMixList, iIndex, mix);
 
     return mix.minPlayers;
-}
-
-int GetMixAbortDelay(int iIndex)
-{
-    MixInfo mix;
-    GetArrayArray(g_hMixList, iIndex, mix);
-
-    return mix.abortDelay;
 }
 
 /**
