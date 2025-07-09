@@ -167,7 +167,7 @@ public Action L4D_OnTryOfferingTankBot(int tank_index, bool &enterStatis)
             
             SetTankFrustration(tank_index, 100);
             g_iTankControlPass[tank_index]++;
-            return Plugin_Continue;
+            return Plugin_Handled;
         }
         else
         {

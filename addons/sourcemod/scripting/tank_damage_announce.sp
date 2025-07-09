@@ -10,29 +10,30 @@
 
 public Plugin myinfo = {
     name        = "Tank Damage Stats",
-    author      = "HANA",
+    author      = "HANA, 改进版",
     description = "瞅瞅集火,什么! 1%  √√√×",
-    version     = "1.3",
+    version     = "1.4",
     url         = "https://steamcommunity.com/profiles/76561197983870853/"
 };
-
-enum struct TankDamageStats {
-    int damage[MAXPLAYERS + 1];
-    int userId[MAXPLAYERS + 1];
-    int count;
-    ArrayList tanks;
-}
 
 enum struct TankInfo {
     int health;
     bool isAlive;
     char name[MAX_NAME_LENGTH];
+    int entityId;
+    int index;
+    int totalDamage;
 }
 
-TankDamageStats g_TankDamage;
+enum struct PlayerDamage {
+    int userId;
+    int damage;
+}
+
+ArrayList g_TanksList;
+ArrayList g_DamageList;
 bool g_bIsTankInPlay;
 char g_sLastHumanTankName[MAX_NAME_LENGTH];
-int g_iTankClient = 0;
 
 public void OnPluginStart()
 {
@@ -41,24 +42,22 @@ public void OnPluginStart()
     HookEvent("tank_spawn", Event_TankSpawn);
     HookEvent("round_start", Event_RoundStart, EventHookMode_PostNoCopy);
     HookEvent("round_end", Event_RoundEnd, EventHookMode_PostNoCopy);
-    g_TankDamage.tanks = new ArrayList(sizeof(TankInfo));
+
+    g_TanksList = new ArrayList(sizeof(TankInfo));
+    g_DamageList = new ArrayList(sizeof(PlayerDamage));
 }
 
 public void OnMapStart()
 {
     g_bIsTankInPlay = false;
     g_sLastHumanTankName[0] = '\0';
-    ClearTankDamage();
+    ClearAllData();
 }
 
-void ClearTankDamage()
+void ClearAllData()
 {
-    for (int i = 1; i <= MaxClients; i++) {
-        g_TankDamage.damage[i] = 0;
-        g_TankDamage.userId[i] = 0;
-    }
-    g_TankDamage.count = 0;
-    g_TankDamage.tanks.Clear();
+    g_TanksList.Clear();
+    g_DamageList.Clear();
     g_bIsTankInPlay = false;
 }
 
@@ -66,7 +65,7 @@ public void Event_RoundStart(Event event, const char[] name, bool dontBroadcast)
 {
     g_bIsTankInPlay = false;
     g_sLastHumanTankName[0] = '\0';
-    ClearTankDamage();
+    ClearAllData();
 }
 
 public void Event_TankSpawn(Event event, const char[] name, bool dontBroadcast)
@@ -75,9 +74,21 @@ public void Event_TankSpawn(Event event, const char[] name, bool dontBroadcast)
     if (!IsValidClient(client))
         return;
         
+    int existingIndex = FindTankByEntityId(client);
+    if (existingIndex != -1) {
+        TankInfo tank;
+        g_TanksList.GetArray(existingIndex, tank);
+        tank.isAlive = true;
+        tank.health = GetEntProp(client, Prop_Data, "m_iHealth");
+        g_TanksList.SetArray(existingIndex, tank);
+        return;
+    }
+        
     TankInfo tank;
     tank.health = GetEntProp(client, Prop_Data, "m_iHealth");
     tank.isAlive = true;
+    tank.entityId = client;
+    tank.totalDamage = 0;
     
     if (!IsFakeClient(client)) {
         GetClientName(client, tank.name, MAX_NAME_LENGTH);
@@ -90,9 +101,8 @@ public void Event_TankSpawn(Event event, const char[] name, bool dontBroadcast)
         }
     }
     
-    g_TankDamage.tanks.PushArray(tank);
+    tank.index = g_TanksList.PushArray(tank);
     g_bIsTankInPlay = true;
-    g_iTankClient = client;
 }
 
 public void Event_PlayerHurt(Event event, const char[] name, bool dontBroadcast)
@@ -106,61 +116,51 @@ public void Event_PlayerHurt(Event event, const char[] name, bool dontBroadcast)
         return;
         
     int damage = event.GetInt("dmg_health");
-    AddTankDamage(attacker, damage);
+    int tankIndex = FindTankByEntityId(victim);
     
-    int currentHealth = GetEntProp(victim, Prop_Data, "m_iHealth");
-    int tanksCount = g_TankDamage.tanks.Length;
+    if (tankIndex == -1) {
+        Event_TankSpawn(event, name, dontBroadcast);
+        tankIndex = FindTankByEntityId(victim);
+        if (tankIndex == -1) return;
+    }
     
-    for (int i = 0; i < tanksCount; i++) {
-        TankInfo tank;
-        g_TankDamage.tanks.GetArray(i, tank);
+    TankInfo tank;
+    g_TanksList.GetArray(tankIndex, tank);
+    tank.health = GetEntProp(victim, Prop_Data, "m_iHealth");
+    tank.totalDamage += damage;
+    g_TanksList.SetArray(tankIndex, tank);
+    
+    AddPlayerDamage(attacker, victim, damage);
+}
+
+void AddPlayerDamage(int attackerClient, int tankClient, int damage)
+{
+    if (damage <= 0 || !IsValidClient(attackerClient))
+        return;
+    
+    int attackerUserId = GetClientUserId(attackerClient);
+    int tankIndex = FindTankByEntityId(tankClient);
+    
+    if (tankIndex == -1) return;
+    
+    bool found = false;
+    for (int i = 0; i < g_DamageList.Length; i++) {
+        PlayerDamage playerDmg;
+        g_DamageList.GetArray(i, playerDmg);
         
-        char victimName[MAX_NAME_LENGTH];
-        GetClientName(victim, victimName, sizeof(victimName));
-        
-        if (strcmp(tank.name, victimName) == 0 || 
-            (IsFakeClient(victim) && StrContains(tank.name, "AI") != -1)) {
-            tank.health = currentHealth;
-            g_TankDamage.tanks.SetArray(i, tank);
+        if (playerDmg.userId == attackerUserId) {
+            playerDmg.damage += damage;
+            g_DamageList.SetArray(i, playerDmg);
+            found = true;
             break;
         }
     }
-}
-
-void AddTankDamage(int client, int damage)
-{
-    if (damage <= 0 || !IsValidClient(client))
-        return;
-        
-    int userId = GetClientUserId(client);
     
-    for (int i = 1; i <= g_TankDamage.count; i++) {
-        if (g_TankDamage.userId[i] == userId) {
-            g_TankDamage.damage[i] += damage;
-            return;
-        }
-    }
-    
-    g_TankDamage.count++;
-    g_TankDamage.userId[g_TankDamage.count] = userId;
-    g_TankDamage.damage[g_TankDamage.count] = damage;
-}
-
-void SortTankDamage()
-{
-    for (int i = 1; i <= g_TankDamage.count - 1; i++) {
-        for (int j = 1; j <= g_TankDamage.count - i; j++) {
-            if (g_TankDamage.damage[j] < g_TankDamage.damage[j + 1]) {
-                int tempDamage = g_TankDamage.damage[j];
-                int tempUserId = g_TankDamage.userId[j];
-                
-                g_TankDamage.damage[j] = g_TankDamage.damage[j + 1];
-                g_TankDamage.userId[j] = g_TankDamage.userId[j + 1];
-                
-                g_TankDamage.damage[j + 1] = tempDamage;
-                g_TankDamage.userId[j + 1] = tempUserId;
-            }
-        }
+    if (!found) {
+        PlayerDamage playerDmg;
+        playerDmg.userId = attackerUserId;
+        playerDmg.damage = damage;
+        g_DamageList.PushArray(playerDmg);
     }
 }
 
@@ -171,76 +171,99 @@ public void Event_PlayerDeath(Event event, const char[] name, bool dontBroadcast
     if (!IsValidClient(victim))
         return;
         
-    if (IsTank(victim))
-    {
-        CreateTimer(0.1, Timer_DisplayDamage, victim);
+    if (IsTank(victim)) {
+        int tankIndex = FindTankByEntityId(victim);
+        if (tankIndex != -1) {
+            TankInfo tank;
+            g_TanksList.GetArray(tankIndex, tank);
+            tank.isAlive = false;
+            g_TanksList.SetArray(tankIndex, tank);
+            
+            DataPack dp = new DataPack();
+            dp.WriteCell(tankIndex);
+            dp.WriteCell(victim);
+            CreateTimer(0.1, Timer_DisplayTankDamage, dp);
+            
+        }
     }
 }
 
-Action Timer_DisplayDamage(Handle timer, int oldTankClient)
+Action Timer_DisplayTankDamage(Handle timer, DataPack dp)
 {
-    if (g_iTankClient != oldTankClient) return Plugin_Stop;
-
-    int tankclient = FindTankClient();
-    if (tankclient && tankclient != oldTankClient)
-    {
-        g_iTankClient = tankclient;
-        return Plugin_Stop;
+    dp.Reset();
+    int tankIndex = dp.ReadCell();
+    dp.ReadCell();
+    delete dp;
+    
+    DisplaySpecificTankDamage(tankIndex);
+    
+    bool anyTankAlive = false;
+    for (int i = 0; i < g_TanksList.Length; i++) {
+        TankInfo tank;
+        g_TanksList.GetArray(i, tank);
+        if (tank.isAlive && IsValidClient(tank.entityId) && IsTank(tank.entityId)) {
+            anyTankAlive = true;
+            break;
+        }
     }
-
-    DisplayTankDamage(oldTankClient);
-    ClearTankDamage();
-    g_bIsTankInPlay = false;
-    g_iTankClient = 0;
+    
+    if (!anyTankAlive) {
+        ClearAllData();
+    }
+    
     return Plugin_Stop;
 }
 
-void DisplayTankDamage(int tank)
+void DisplaySpecificTankDamage(int tankIndex)
 {
-    if (g_TankDamage.count == 0)
+    if (tankIndex < 0 || tankIndex >= g_TanksList.Length)
         return;
-        
-    char displayName[64];
-    if (IsFakeClient(tank)) {
-        if (g_sLastHumanTankName[0] != '\0') {
-            Format(displayName, sizeof(displayName), "AI [%s]", g_sLastHumanTankName);
-        } else {
-            Format(displayName, sizeof(displayName), "AI");
-        }
-    } else {
-        GetClientName(tank, displayName, sizeof(displayName));
-        strcopy(g_sLastHumanTankName, sizeof(g_sLastHumanTankName), displayName);
-    }
     
+    TankInfo tank;
+    g_TanksList.GetArray(tankIndex, tank);
+    
+    ArrayList tankDamage = new ArrayList(sizeof(PlayerDamage));
     int totalDamage = 0;
-    for (int i = 1; i <= g_TankDamage.count; i++) {
-        totalDamage += g_TankDamage.damage[i];
+    
+    for (int i = 0; i < g_DamageList.Length; i++) {
+        PlayerDamage playerDmg;
+        g_DamageList.GetArray(i, playerDmg);
+        
+        if (playerDmg.damage > 0) {
+            tankDamage.PushArray(playerDmg);
+            totalDamage += playerDmg.damage;
+        }
     }
     
-    if (totalDamage <= 0)
+    if (tankDamage.Length == 0 || totalDamage <= 0) {
+        delete tankDamage;
         return;
+    }
     
-    SortTankDamage();
+    SortTankDamage(tankDamage);
     
     for (int i = 1; i <= MaxClients; i++) {
         if (!IsValidClient(i) || !IsClientInGame(i))
             continue;
             
-        CPrintToChat(i, "┌ <{green}Tank{default}> {olive}%s{default} 受到的伤害:", displayName);
+        CPrintToChat(i, "┌ <{green}Tank{default}> {olive}%s{default} 受到的伤害:", tank.name);
         
-        for (int j = 1; j <= g_TankDamage.count; j++) {
-            int client = GetClientOfUserId(g_TankDamage.userId[j]);
+        for (int j = 0; j < tankDamage.Length; j++) {
+            PlayerDamage playerDmg;
+            tankDamage.GetArray(j, playerDmg);
+            
+            int client = GetClientOfUserId(playerDmg.userId);
             
             if (client <= 0 || !IsClientInGame(client))
                 continue;
                 
-            int damage = g_TankDamage.damage[j];
+            int damage = playerDmg.damage;
             int percentage = RoundToNearest((float(damage) / float(totalDamage)) * 100.0);
             
             char spaces[8];
             Format(spaces, sizeof(spaces), "%s", (damage < 1000) ? "  " : "");
             
-            if (j == g_TankDamage.count) {
+            if (j == tankDamage.Length - 1) {
                 CPrintToChat(i, "└ %s{olive}%4d{default} [{green}%3d%%{default}] {blue}%N{default}", 
                     spaces, damage, percentage, client);
             } else {
@@ -249,37 +272,49 @@ void DisplayTankDamage(int tank)
             }
         }
     }
+    
+    delete tankDamage;
+}
+
+void SortTankDamage(ArrayList damageList)
+{
+    int size = damageList.Length;
+    
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            PlayerDamage damage1, damage2;
+            damageList.GetArray(j, damage1);
+            damageList.GetArray(j + 1, damage2);
+            
+            if (damage1.damage < damage2.damage) {
+                damageList.SwapAt(j, j + 1);
+            }
+        }
+    }
 }
 
 public void Event_RoundEnd(Event event, const char[] name, bool dontBroadcast)
 {
     if (g_bIsTankInPlay) {
-        int currentTank = GetTankClient();
-        DisplayTankDamage(currentTank);
-        
-        if (currentTank > 0) {
-            int currentHealth = GetEntProp(currentTank, Prop_Data, "m_iHealth");
-            char tankName[MAX_NAME_LENGTH];
+        for (int i = 0; i < g_TanksList.Length; i++) {
+            TankInfo tank;
+            g_TanksList.GetArray(i, tank);
             
-            if (IsFakeClient(currentTank)) {
-                if (g_sLastHumanTankName[0] != '\0') {
-                    Format(tankName, sizeof(tankName), "AI [%s]", g_sLastHumanTankName);
-                } else {
-                    strcopy(tankName, sizeof(tankName), "AI");
-                }
-            } else {
-                GetClientName(currentTank, tankName, sizeof(tankName));
-            }
-            
-            for (int client = 1; client <= MaxClients; client++) {
-                if (IsValidClient(client) && IsClientInGame(client)) {
-                    CPrintToChat(client, "{default}<{green}Tank{default}> {olive}%s{default} 剩余血量: {red}%d", 
-                        tankName, currentHealth);
+            if (tank.isAlive && IsValidClient(tank.entityId) && IsTank(tank.entityId)) {
+                DisplaySpecificTankDamage(i);
+                
+                int currentHealth = GetEntProp(tank.entityId, Prop_Data, "m_iHealth");
+                
+                for (int client = 1; client <= MaxClients; client++) {
+                    if (IsValidClient(client) && IsClientInGame(client)) {
+                        CPrintToChat(client, "{default}<{green}Tank{default}> {olive}%s{default} 剩余血量: {red}%d", 
+                            tank.name, currentHealth);
+                    }
                 }
             }
         }
     }
-    ClearTankDamage();
+    ClearAllData();
 }
 
 bool IsValidClient(int client)
@@ -292,26 +327,14 @@ bool IsTank(int client)
     return (GetClientTeam(client) == TEAM_INFECTED && GetEntProp(client, Prop_Send, "m_zombieClass") == SI_CLASS_TANK);
 }
 
-int GetTankClient()
+int FindTankByEntityId(int entityId)
 {
-    if (!g_bIsTankInPlay) return 0;
-
-    for (int i = 1; i <= MaxClients; i++)
-    {
-        if (IsClientInGame(i) && IsTank(i))
-        {
+    for (int i = 0; i < g_TanksList.Length; i++) {
+        TankInfo tank;
+        g_TanksList.GetArray(i, tank);
+        if (tank.entityId == entityId) {
             return i;
         }
     }
-    return 0;
-}
-
-int FindTankClient()
-{
-    for (int i = 1; i <= MaxClients; i++)
-    {
-        if (IsClientInGame(i) && GetClientTeam(i) == TEAM_INFECTED && IsPlayerAlive(i) && GetEntProp(i, Prop_Send, "m_zombieClass") == SI_CLASS_TANK)
-            return i;
-    }
-    return 0;
+    return -1;
 }
