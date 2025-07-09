@@ -175,12 +175,11 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
  */
 int Native_AddMix(Handle hPlugin, int iParams)
 {
-    if (iParams < 2) {
+    if (iParams < 1) {
         ThrowNativeError(SP_ERROR_NATIVE, "Call native without required params");
     }
 
     MixInfo mix;
-
     mix.minPlayers = GetNativeCell(1);
 
     return PushArrayArray(g_hMixList, mix);
@@ -558,8 +557,7 @@ int HandleMenu(Menu hMenu, MenuAction hAction, int iClient, int iItem)
 
                 SetAllClientSpectator();
 
-                if (SetMixState(MixState_InProgress) == Plugin_Continue) {
-                }
+                SetMixState(MixState_InProgress);
 
                 return 0;
             }
@@ -739,10 +737,7 @@ public int HandlerVoteMix(NativeVote hVote, MenuAction action, int param1, int p
 void RunPlayerMix()
 {
     SetAllClientSpectator();
-
-    if (SetMixState(MixState_InProgress) == Plugin_Continue) {
-        FinishPlayerMix();
-    }
+    SetMixState(MixState_InProgress);
 }
 
 /**

@@ -53,7 +53,7 @@ public void OnPluginStart() {
 public void OnAllPluginsLoaded()
 {
     int iCalcMinPlayers = (FindConVar("survivor_limit").IntValue * 2);
-    g_iThisMixIndex = AddMix((iCalcMinPlayers < MIN_PLAYERS) ? MIN_PLAYERS : iCalcMinPlayers, 60);
+    g_iThisMixIndex = AddMix((iCalcMinPlayers < MIN_PLAYERS) ? MIN_PLAYERS : iCalcMinPlayers);
 }
 
 public Action OnDrawVoteTitle(int iMixIndex, int iClient, char[] sTitle, int iLength)

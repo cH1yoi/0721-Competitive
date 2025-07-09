@@ -52,7 +52,7 @@ native void Call_FinishMix();
  *
  * @return              MixList Index if success, otherwise throw error.
  **/
-native int AddMix(int iMinPlayers, int iAbortDelay);
+native int AddMix(int minPlayers);
 
 /**
  * @brief Returns the status of the mix.

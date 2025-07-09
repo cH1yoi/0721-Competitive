@@ -52,7 +52,7 @@ public void OnPluginStart() {
 }
 
 public void OnAllPluginsLoaded() {
-    g_iThisMixIndex = AddMix(MIN_PLAYERS, 0);
+    g_iThisMixIndex = AddMix(MIN_PLAYERS);
 }
 
 public Action OnDrawVoteTitle(int iMixIndex, int iClient, char[] sTitle, int iLength)
@@ -96,7 +96,9 @@ public Action OnChangeMixState(int iMixIndex, MixState eOldState, MixState eNewS
         }
 
         tPlayer.id = iClient;
-        tPlayer.rating = CalculatePlayerRating(GetPlayerStats(iClient));
+        PlayerStats stats;
+        GetPlayerStats(iClient, stats);
+        tPlayer.rating = CalculatePlayerRating(stats);
 
         if (tPlayer.rating <= 0.0)
         {
@@ -154,10 +156,9 @@ public void OnClientAuthorized(int iClient, const char[] sAuthId)
     RequestPlayerStats(iClient);
 }
 
-any[] GetPlayerStats(int iClient)
+// 修复：改为void函数，通过引用传递结构体
+void GetPlayerStats(int iClient, PlayerStats tPlayerStats)
 {
-    PlayerStats tPlayerStats;
-
     SteamWorks_GetStatCell(iClient, "Stat.TotalPlayTime.Total", tPlayerStats.playedTime);
     SteamWorks_GetStatCell(iClient, "Stat.GamesWon.Versus", tPlayerStats.gamesWon);
     SteamWorks_GetStatCell(iClient, "Stat.GamesLost.Versus", tPlayerStats.gamesLost);
@@ -165,8 +166,6 @@ any[] GetPlayerStats(int iClient)
     SteamWorks_GetStatCell(iClient, "Stat.smg.Kills.Total", tPlayerStats.killBySmg);
     SteamWorks_GetStatCell(iClient, "Stat.shotgun_chrome.Kills.Total", tPlayerStats.killByChrome);
     SteamWorks_GetStatCell(iClient, "Stat.pumpshotgun.Kills.Total", tPlayerStats.killByPump);
-
-    return tPlayerStats;
 }
 
 float CalculatePlayerRating(PlayerStats tPlayerStats)

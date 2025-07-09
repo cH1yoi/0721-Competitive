@@ -32,7 +32,7 @@ public void OnPluginStart() {
 }
 
 public void OnAllPluginsLoaded() {
-    g_iThisMixIndex = AddMix(MIN_PLAYERS, 0);
+    g_iThisMixIndex = AddMix(MIN_PLAYERS);
 }
 
 public Action OnDrawVoteTitle(int iMixIndex, int iClient, char[] sTitle, int iLength)
