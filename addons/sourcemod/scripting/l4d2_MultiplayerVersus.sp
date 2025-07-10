@@ -290,7 +290,6 @@ public Action Timer_SpawnExtraTank(Handle timer)
             char name[MAX_NAME_LENGTH];
             GetClientName(client, name, sizeof(name));
             
-            RemoveFromTankQueue(steamId);
             SetTank(steamId);
             
             DataPack dp = new DataPack();
@@ -468,6 +467,7 @@ int CreateSurvivorBot()
 bool HasPlayerHadTank(const char[] steamId)
 {
     ArrayList hadTankList = GetWhosHadTank();
+    if (hadTankList == null) return false;
     bool hadTank = (hadTankList.FindString(steamId) != -1);
     delete hadTankList;
     return hadTank;
@@ -476,6 +476,8 @@ bool HasPlayerHadTank(const char[] steamId)
 void AddTankToList(const char[] steamId)
 {
     ArrayList hadTankList = GetWhosHadTank();
+    if (hadTankList == null) return; 
+
     if (hadTankList.FindString(steamId) == -1)
     {
         hadTankList.PushString(steamId);
