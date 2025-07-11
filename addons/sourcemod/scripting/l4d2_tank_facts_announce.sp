@@ -350,17 +350,22 @@ void ClearStuff()
 
 stock int GetTankClient()
 {
-	if (!g_bTankInPlay) return 0;
+    if (!g_bTankInPlay) return 0;
 
-	int tankclient = g_iTankClient;
+    int tankclient = g_iTankClient;
 
-	// 先检查客户端索引是否有效，再检查是否在游戏中
-	if (tankclient <= 0 || tankclient > MaxClients || !IsClientInGame(tankclient)) // If tank somehow is no longer in the game (kicked, hence events didn't fire)
-	{
-		tankclient = FindTankClient(-1); // find the tank client
-		if (tankclient <= 0 || tankclient > MaxClients) return 0;
-		g_iTankClient = tankclient;
-	}
+    if (tankclient <= 0 || tankclient > MaxClients)
+    {
+        tankclient = FindTankClient(-1); // find the tank client
+        if (tankclient <= 0 || tankclient > MaxClients) return 0;
+        g_iTankClient = tankclient;
+    }
+    else if (!IsClientInGame(tankclient))
+    {
+        tankclient = FindTankClient(-1); // find the tank client
+        if (tankclient <= 0 || tankclient > MaxClients) return 0;
+        g_iTankClient = tankclient;
+    }
 
-	return tankclient;
+    return tankclient;
 }

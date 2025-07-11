@@ -334,136 +334,184 @@ bool IsInteger(const char[] buffer)
 
 Action ForceTankCommand(int client, int args)
 {
-	if (!GetConVarBool(g_hCvarBossVoting)) {
-		return Plugin_Handled;
-	}
-	
-	if (IsDarkCarniRemix())
-	{
-		CPrintToChat(client, "%t", "CommandNotAvailable");
-		return Plugin_Handled;
-	}
-	
-	if (IsStaticTankMap())
-	{
-		CPrintToChat(client, "%t", "TankSpawnStatic");
-		return Plugin_Handled;
-	}
-	
-	if (!IsInReady())
-	{
-		CPrintToChat(client, "%t", "OnlyReadyUp");
-		return Plugin_Handled;
-	}
-	
-	// Get Requested Tank Percent
-	char bv_sTank[32];
-	GetCmdArg(1, bv_sTank, 32);
-	
-	// Make sure the cmd argument is a number
-	if (!IsInteger(bv_sTank))
-		return Plugin_Handled;
-	
-	// Convert it to in int boy
-	int p_iRequestedPercent = StringToInt(bv_sTank);
-	
-	if (p_iRequestedPercent < 0)
-	{
-		CPrintToChat(client, "%t", "PercentageInvalid");
-		return Plugin_Handled;
-	}
-	
-	// Check if percent is within limits
-	if (!IsTankPercentValid(p_iRequestedPercent))
-	{
-		CPrintToChat(client, "%t", "Percentagebanned");
-		return Plugin_Handled;
-	}
-	
-	// Set the boss
-	SetTankPercent(p_iRequestedPercent);
-	
-	// Let everybody know
-	char clientName[32];
-	GetClientName(client, clientName, sizeof(clientName));
-	CPrintToChatAll("%t", "TankSpawnAdmin", p_iRequestedPercent, clientName);
-	
-	// Update our shiz yo
-	UpdateBossPercents();
-	
-	// Forward da message man :)
-	Call_StartForward(g_forwardUpdateBosses);
-	Call_PushCell(p_iRequestedPercent);
-	Call_PushCell(-1);
-	Call_Finish();
+    if (!GetConVarBool(g_hCvarBossVoting)) {
+        return Plugin_Handled;
+    }
+    
+    if (IsDarkCarniRemix())
+    {
+        if (client > 0 && IsClientInGame(client)) {
+            CPrintToChat(client, "%t", "CommandNotAvailable");
+        } else {
+            PrintToServer("[Boss Vote] Command not available on this map.");
+        }
+        return Plugin_Handled;
+    }
+    
+    if (IsStaticTankMap())
+    {
+        if (client > 0 && IsClientInGame(client)) {
+            CPrintToChat(client, "%t", "TankSpawnStatic");
+        } else {
+            PrintToServer("[Boss Vote] Tank spawn is static on this map.");
+        }
+        return Plugin_Handled;
+    }
+    
+    if (!IsInReady())
+    {
+        if (client > 0 && IsClientInGame(client)) {
+            CPrintToChat(client, "%t", "OnlyReadyUp");
+        } else {
+            PrintToServer("[Boss Vote] This command is only available during ready-up.");
+        }
+        return Plugin_Handled;
+    }
+    
+    // Get Requested Tank Percent
+    char bv_sTank[32];
+    GetCmdArg(1, bv_sTank, 32);
+    
+    // Make sure the cmd argument is a number
+    if (!IsInteger(bv_sTank))
+        return Plugin_Handled;
+    
+    // Convert it to in int boy
+    int p_iRequestedPercent = StringToInt(bv_sTank);
+    
+    if (p_iRequestedPercent < 0)
+    {
+        if (client > 0 && IsClientInGame(client)) {
+            CPrintToChat(client, "%t", "PercentageInvalid");
+        } else {
+            PrintToServer("[Boss Vote] Requested percentage is invalid.");
+        }
+        return Plugin_Handled;
+    }
+    
+    // Check if percent is within limits
+    if (!IsTankPercentValid(p_iRequestedPercent))
+    {
+        if (client > 0 && IsClientInGame(client)) {
+            CPrintToChat(client, "%t", "Percentagebanned");
+        } else {
+            PrintToServer("[Boss Vote] Requested percentage is banned.");
+        }
+        return Plugin_Handled;
+    }
+    
+    // Set the boss
+    SetTankPercent(p_iRequestedPercent);
+    
+    // Let everybody know
+    char clientName[32];
+    if (client > 0 && IsClientInGame(client)) {
+        GetClientName(client, clientName, sizeof(clientName));
+    } else {
+        strcopy(clientName, sizeof(clientName), "Console");
+    }
+    CPrintToChatAll("%t", "TankSpawnAdmin", p_iRequestedPercent, clientName);
+    
+    // Update our shiz yo
+    UpdateBossPercents();
+    
+    // Forward da message man :)
+    Call_StartForward(g_forwardUpdateBosses);
+    Call_PushCell(p_iRequestedPercent);
+    Call_PushCell(-1);
+    Call_Finish();
 
-	return Plugin_Handled;
+    return Plugin_Handled;
 }
 
 Action ForceWitchCommand(int client, int args)
 {
-	if (!GetConVarBool(g_hCvarBossVoting)) {
-		return Plugin_Handled;
-	}
-	
-	if (IsDarkCarniRemix())
-	{
-		CPrintToChat(client, "%t", "CommandNotAvailable");
-		return Plugin_Handled;
-	}
-	
-	if (IsStaticWitchMap())
-	{
-		CPrintToChat(client, "%t", "WitchSpawnStatic");
-		return Plugin_Handled;
-	}
-	
-	if (!IsInReady())
-	{
-		CPrintToChat(client, "%t", "OnlyReadyUp");
-		return Plugin_Handled;
-	}
-	
-	// Get Requested Witch Percent
-	char bv_sWitch[32];
-	GetCmdArg(1, bv_sWitch, 32);
-	
-	// Make sure the cmd argument is a number
-	if (!IsInteger(bv_sWitch))
-		return Plugin_Handled;
-	
-	// Convert it to in int boy
-	int p_iRequestedPercent = StringToInt(bv_sWitch);
-	
-	if (p_iRequestedPercent < 0)
-	{
-		CPrintToChat(client, "%t", "PercentageInvalid");
-		return Plugin_Handled;
-	}
-	
-	// Check if percent is within limits
-	if (!IsWitchPercentValid(p_iRequestedPercent))
-	{
-		CPrintToChat(client, "%t", "Percentagebanned");
-		return Plugin_Handled;
-	}
-	
-	// Set the boss
-	SetWitchPercent(p_iRequestedPercent);
-	
-	// Let everybody know
-	char clientName[32];
-	GetClientName(client, clientName, sizeof(clientName));
-	CPrintToChatAll("%t", "WitchSpawnAdmin", p_iRequestedPercent, clientName);
-	
-	// Update our shiz yo
-	UpdateBossPercents();
-	
-	// Forward da message man :)
-	Call_StartForward(g_forwardUpdateBosses);
-	Call_PushCell(-1);
-	Call_PushCell(p_iRequestedPercent);
-	Call_Finish();
+    if (!GetConVarBool(g_hCvarBossVoting)) {
+        return Plugin_Handled;
+    }
+    
+    if (IsDarkCarniRemix())
+    {
+        if (client > 0 && IsClientInGame(client)) {
+            CPrintToChat(client, "%t", "CommandNotAvailable");
+        } else {
+            PrintToServer("[Boss Vote] Command not available on this map.");
+        }
+        return Plugin_Handled;
+    }
+    
+    if (IsStaticWitchMap())
+    {
+        if (client > 0 && IsClientInGame(client)) {
+            CPrintToChat(client, "%t", "WitchSpawnStatic");
+        } else {
+            PrintToServer("[Boss Vote] Witch spawn is static on this map.");
+        }
+        return Plugin_Handled;
+    }
+    
+    if (!IsInReady())
+    {
+        if (client > 0 && IsClientInGame(client)) {
+            CPrintToChat(client, "%t", "OnlyReadyUp");
+        } else {
+            PrintToServer("[Boss Vote] This command is only available during ready-up.");
+        }
+        return Plugin_Handled;
+    }
+    
+    // Get Requested Witch Percent
+    char bv_sWitch[32];
+    GetCmdArg(1, bv_sWitch, 32);
+    
+    // Make sure the cmd argument is a number
+    if (!IsInteger(bv_sWitch))
+        return Plugin_Handled;
+    
+    // Convert it to in int boy
+    int p_iRequestedPercent = StringToInt(bv_sWitch);
+    
+    if (p_iRequestedPercent < 0)
+    {
+        if (client > 0 && IsClientInGame(client)) {
+            CPrintToChat(client, "%t", "PercentageInvalid");
+        } else {
+            PrintToServer("[Boss Vote] Requested percentage is invalid.");
+        }
+        return Plugin_Handled;
+    }
+    
+    // Check if percent is within limits
+    if (!IsWitchPercentValid(p_iRequestedPercent))
+    {
+        if (client > 0 && IsClientInGame(client)) {
+            CPrintToChat(client, "%t", "Percentagebanned");
+        } else {
+            PrintToServer("[Boss Vote] Requested percentage is banned.");
+        }
+        return Plugin_Handled;
+    }
+    
+    // Set the boss
+    SetWitchPercent(p_iRequestedPercent);
+    
+    // Let everybody know
+    char clientName[32];
+    if (client > 0 && IsClientInGame(client)) {
+        GetClientName(client, clientName, sizeof(clientName));
+    } else {
+        strcopy(clientName, sizeof(clientName), "Console");
+    }
+    CPrintToChatAll("%t", "WitchSpawnAdmin", p_iRequestedPercent, clientName);
+    
+    // Update our shiz yo
+    UpdateBossPercents();
+    
+    // Forward da message man :)
+    Call_StartForward(g_forwardUpdateBosses);
+    Call_PushCell(-1);
+    Call_PushCell(p_iRequestedPercent);
+    Call_Finish();
 
-	return Plugin_Handled;
+    return Plugin_Handled;
 }
